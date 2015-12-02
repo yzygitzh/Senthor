@@ -1,0 +1,13 @@
+ENCODINGS
+LARGE_STRING
+STRINGS
+random
+absolute_import
+unicode_literals
+test_reader_on_large_string
+SeekableUnicodeStreamReader
+test_reader
+functools
+BytesIO
+check_reader
+teardown_module

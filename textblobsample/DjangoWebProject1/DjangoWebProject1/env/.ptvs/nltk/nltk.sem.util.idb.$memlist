@@ -1,0 +1,14 @@
+demo
+demo_legacy_grammar
+g0
+m0
+evaluate_sents
+unicode_literals
+parse_sents
+codecs
+print_function
+read_sents
+demo_model0
+evaluate
+root_semrep
+interpret_sents

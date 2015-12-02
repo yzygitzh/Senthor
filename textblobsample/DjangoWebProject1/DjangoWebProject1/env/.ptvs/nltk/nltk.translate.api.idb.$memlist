@@ -1,0 +1,13 @@
+_naacl2pair
+python_2_unicode_compatible
+namedtuple
+PhraseTable
+unicode_literals
+AlignedSent
+Alignment
+subprocess
+_giza2pair
+print_function
+string_types
+PhraseTableEntry
+_check_alignment

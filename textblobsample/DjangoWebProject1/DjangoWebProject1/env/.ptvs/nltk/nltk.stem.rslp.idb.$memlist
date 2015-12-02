@@ -1,0 +1,5 @@
+load
+print_function
+StemmerI
+unicode_literals
+RSLPStemmer

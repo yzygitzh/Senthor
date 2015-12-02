@@ -1,0 +1,9 @@
+ZipFilePathPointer
+CrubadanCorpusReader
+PY3
+unicode_literals
+print_function
+FreqDist
+path
+re
+CorpusReader

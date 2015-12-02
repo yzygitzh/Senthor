@@ -1,0 +1,11 @@
+requires_nltk_corpus
+strip_punc
+absolute_import
+WordTokenizer
+nltk
+chain
+BaseTokenizer
+_word_tokenizer
+word_tokenize
+SentenceTokenizer
+sent_tokenize

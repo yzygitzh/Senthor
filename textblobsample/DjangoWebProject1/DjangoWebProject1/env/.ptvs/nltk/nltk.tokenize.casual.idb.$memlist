@@ -1,0 +1,17 @@
+casual_tokenize
+REGEXPS
+unicode_literals
+htmlentitydefs
+TweetTokenizer
+re
+_replace_html_entities
+ENT_RE
+reduce_lengthening
+WORD_RE
+_str_to_unicode
+EMOTICONS
+unichr
+URLS
+int2byte
+EMOTICON_RE
+remove_handles

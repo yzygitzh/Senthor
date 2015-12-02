@@ -1,0 +1,4 @@
+absolute_import
+singularize
+__all__
+pluralize
