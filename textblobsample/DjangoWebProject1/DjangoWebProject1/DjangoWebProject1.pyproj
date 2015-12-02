@@ -6,6 +6,7 @@
     <RootNamespace>DjangoWebProject1</RootNamespace>
     <InterpreterId>{e9207b28-ee04-48ad-8df2-c18f2b9b82e1}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
+    <NameOfLastUsedPublishProfile>publishtest</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -55,6 +56,7 @@
     <Folder Include="DjangoWebProject1\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="publishtest.pubxml" />
     <Content Include="Readme.md" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
