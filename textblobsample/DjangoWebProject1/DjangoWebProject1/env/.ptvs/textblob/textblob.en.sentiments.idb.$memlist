@@ -1,0 +1,12 @@
+PatternAnalyzer
+DISCRETE
+namedtuple
+CONTINUOUS
+absolute_import
+NaiveBayesAnalyzer
+_default_feature_extractor
+nltk
+requires_nltk_corpus
+pattern_sentiment
+word_tokenize
+BaseSentimentAnalyzer

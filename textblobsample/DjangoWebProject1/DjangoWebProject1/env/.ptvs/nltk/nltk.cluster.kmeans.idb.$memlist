@@ -1,0 +1,10 @@
+demo
+copy
+python_2_unicode_compatible
+unicode_literals
+KMeansClusterer
+numpy
+VectorSpaceClusterer
+print_function
+random
+sys

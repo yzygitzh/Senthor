@@ -1,0 +1,9 @@
+absolute_import
+inspect
+warnings
+RemovedInDjango110Warning
+RenameMethodsBase
+RemovedInNextVersionWarning
+warn_about_renamed_method
+RemovedInDjango20Warning
+RemovedInDjango19Warning
