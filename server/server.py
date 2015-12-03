@@ -8,6 +8,8 @@ import os
 HOST = ''
 PORT = 8888
 ROOT = os.path.abspath('.')
+
+# Header
 REP_HEAD = '''HTTP/1.1 200 OK  
 Content-Type: text/html
 
@@ -49,8 +51,9 @@ while True:
         if src[-1] == '/':
             src += 'index.html'
         content = response(src)
-        print content
+        
         if (content == -1):
+            #Handle page not found exception
             f = open(ROOT+'/404.html', 'r')
             conn.sendall(REP_404+f.read())
             f.close()
