@@ -87,14 +87,16 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 	* 这是Python下的很强大的工具。大家如果不了解的话我在这里挂个官方Documentation的[链接](https://media.readthedocs.org/pdf/scrapy/1.0/scrapy.pdf)
 
 #####各爬虫模块说明
-#####crawler_yahoo(2015.12.4 updated by yzy): 
+####crawler_yahoo(2015.12.4 updated by yzy): 
 针对雅虎新闻网（news.yahoo.com）的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），xpath一波流
-######依赖
+#####依赖
 * scrapy
-######用法
+
+#####用法
 	cd crawler/crawler_yahoo
 	scrapy crawl crawler_yahoo > out.txt
-######输出说明
+
+#####输出说明
 每一行是一个JSON格式的新闻，一个新闻包含title, link, article, comments四种属性。
 title是新闻标题；
 link是新闻链接；
@@ -102,7 +104,8 @@ article是新闻内容；
 comments是新闻评论。
 title, link和article的value是字符串，comments的value是一个array，该array中以字符串作为元素，每个字符串是一条评论。
 评论的排列顺序是从时间倒序（即新鲜评论在前面）。
-######注意事项
+
+#####注意事项
 * 英文雅虎的访问不够稳定，现在这个爬虫可能会漏掉一些新闻
 * 现在抓取时用的UserAgent是WP8（Lumia 520）以追求处理简单，如果哪天雅虎把这种网页下架了那这个爬虫就不能用了
 
