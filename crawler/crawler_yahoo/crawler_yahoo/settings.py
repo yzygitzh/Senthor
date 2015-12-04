@@ -85,4 +85,4 @@ USER_AGENT = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # design for yahoo for its strange latency
-DOWNLOAD_TIMEOUT=5
+# DOWNLOAD_TIMEOUT=5

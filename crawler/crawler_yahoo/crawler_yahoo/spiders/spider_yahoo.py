@@ -1,5 +1,4 @@
 import scrapy
-import inspect
 from scrapy.linkextractors import LinkExtractor
 from crawler_yahoo.items import CrawlerYahooItem
 import json
