@@ -35,6 +35,12 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 #####分工：
 刘家霖(暂定)
 #####实现方式：
+* 目前我实现了Naive Web Server。
+	* 目前的情况是只实现了GET Method，支持基本的js和html自然是没问题，但是对于POST方法无能为力(我还不会实现POST，somebody能实现POST的可以接着陪我造轮子，基于Python的socket包理论上应该不难)
+	* 目前JSON RPC模块需要POST方法，所以考虑暂时使用下面的方案
+* Apache方案
+	* 本来我也考虑过吴鹏说的架设一个Django或者Tornado这些Python版本服务器，后来我发现没有这个必要，因为我的DigitalOcean服务器和杨子岳的Aliyun服务器和我本机上(Mac自带的)都有Apache服务器所以就没有必要再搬运一个轮子了。
+	* 如果可以的话我们可以回头再改我的NaiveServer2333
 **(等待填写)**
 
 ---
