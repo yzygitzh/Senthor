@@ -45,7 +45,7 @@ def handle_get(text):
     print "####LOG GET Keyword:" + keyword
     content = REP_GET + '''Server Get Keyword : ''' + keyword
     http_client = pyjsonrpc.HttpClient(
-        url = "127.0.0.1:8888"
+        url = "http://127.0.0.1:8888"
     )
     content += http_client.call('query',keyword)    
     return content 
