@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="publishtest.pubxml" />
+    <Content Include="app\templates\post.html" />
     <Content Include="Readme.md" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

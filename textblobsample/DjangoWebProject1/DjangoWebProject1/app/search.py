@@ -4,7 +4,7 @@ from django.template import RequestContext
 from datetime import datetime
 from textblob import TextBlob
 from django.core.context_processors import csrf
-
+from textblob.sentiments import NaiveBayesAnalyzer
 def search_post_old(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
@@ -25,25 +25,35 @@ def search_post_old(request):
 def search_post(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
-    result="";
+    NaivebayesResult="";
     ctx ={}
     ctx.update(csrf(request))
-    ctx['rlt']="";
+    ctx['naivebayes_rlt']="";
+    ctx['PatternAnalyzer_rlt']="";
     if(request.POST):
+        ctx['naivebayes_rlt']="naivebayes error";
+        ctx['PatternAnalyzer_rlt']="PatternAnalyzer error";
         post_str=request.POST['q'];
-        result=getTextOverallSentiment(text);
+        NaivebayesResult=getTextOverallSentiment(post_str);
         
-        if(result[0]=='pos'):
+        if(NaivebayesResult[0]=='pos'):
             sentiment='positive'
         else:
             sentiment='negtive'
-        ctx['rlt']="classification="+sentiment+"p_pos="+result[1]+"p_neg="+result[2];
+        ctx['naivebayes_rlt']="NaiveBayes result:"+"classification="+sentiment+","+"p_pos="+str(NaivebayesResult[1])+","+"p_neg="+str(NaivebayesResult[2]);
+        PatternAnalyzerResult=getPatternAnalyzerSentiment(post_str);
+        ctx['PatternAnalyzer_rlt']="PatternAnalyzer result:"+"polarity:"+str(PatternAnalyzerResult['polarity'])+","+"subjectivity:"+str(PatternAnalyzerResult['subjectivity']);
     return render(request,"post.html",ctx)
 
 def getTextOverallSentiment(text):
+    blob=TextBlob(text,analyzer=NaiveBayesAnalyzer());
+    result=();
+    result=blob.sentiment;
+    return result;
+def getPatternAnalyzerSentiment(text):
     blob=TextBlob(text);
     result=();
     result=blob.sentiment;
     return result;
-
+    
     
