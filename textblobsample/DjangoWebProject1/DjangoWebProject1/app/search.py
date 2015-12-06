@@ -42,7 +42,7 @@ def search_post(request):
             sentiment='negtive'
         ctx['naivebayes_rlt']="NaiveBayes result:"+"classification="+sentiment+","+"p_pos="+str(NaivebayesResult[1])+","+"p_neg="+str(NaivebayesResult[2]);
         PatternAnalyzerResult=getPatternAnalyzerSentiment(post_str);
-        ctx['PatternAnalyzer_rlt']="PatternAnalyzer result:"+"polarity:"+str(PatternAnalyzerResult['polarity'])+","+"subjectivity:"+str(PatternAnalyzerResult['subjectivity']);
+        ctx['PatternAnalyzer_rlt']="PatternAnalyzer result:"+"polarity:"+str(PatternAnalyzerResult[0])+","+"subjectivity:"+str(PatternAnalyzerResult[1]);
     return render(request,"post.html",ctx)
 
 def getTextOverallSentiment(text):
