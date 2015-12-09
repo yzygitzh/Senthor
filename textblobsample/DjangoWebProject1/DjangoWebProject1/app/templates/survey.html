@@ -16,6 +16,7 @@
     <title> Survey </title>
 </head>
 <body>
+    <p>made by 1300012442 wupeng</p>
 <form 
     action = "/survey-post" 
     method = "post">
@@ -47,20 +48,20 @@
 <input type = "submit"  value = "Submit Order" />
 <input type = "reset"  value = "Clear Order Form" />
 </form>
-
+<a href="/survey-show">Show me Result at once!</a>
 <hr />
 <p>
 the results of the survey so far HERE
 <div id="result">
     <form 
-    action = "/survey-post" 
+    action = "/survey-del" 
     method = "post">
 
-    {#{% csrf_token %}#}
+    {% csrf_token %}
     <ol> 
     {#{{survey_result}}#}
     {% for var in survey_result %}
-        <li>{{var.name}}</li>
+        <li><input type="checkbox" name="todel[]" value="{{var.id}}"/>Name:{{var.name}},Age:{{var.age}},Gender:{{var.gender}},Email:{{var.email}}</li>
     {% endfor %}
     </ol>
         

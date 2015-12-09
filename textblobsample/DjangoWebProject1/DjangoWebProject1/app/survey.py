@@ -25,11 +25,9 @@ def search_post_old(request):
 def survey_post(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
-    NaivebayesResult="";
     ctx ={}
     ctx.update(csrf(request))
     ctx['survey_result']="";
-    ctx['PatternAnalyzer_rlt']="";
     if(request.POST):
         entry={};#字典需要声明
         entry['name']=request.POST['name'];
@@ -38,8 +36,11 @@ def survey_post(request):
         entry['email']=request.POST['email'];
         insert(entry);
         result=getAll();
+        retList=[];
         for var in result:
-            ctx['survey_result']+='<li>'+'<input type="checkbox" name="todel[]" value="'+str(var.id)+'"/>'+str(var.name)+','+str(var.age)+','+str(var.gender)+','+str(var.email)+'</li>';
+            #ctx['survey_result']+='<li>'+'<input type="checkbox" name="todel[]" value="'+str(var.id)+'"/>'+str(var.name)+','+str(var.age)+','+str(var.gender)+','+str(var.email)+'</li>';
+            retList.append(var);
+        ctx['survey_result']=retList;
     return render(request,"survey.html",ctx)
 
 from app.models import PersonInfo
@@ -53,3 +54,37 @@ def insert(entry):
 def getAll():
     list=PersonInfo.objects.all();
     return list;
+def delete(del_id):
+    del_obj=PersonInfo.objects.get(id=del_id);
+    del_obj.delete();
+def survey_del(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    ctx ={}
+    ctx.update(csrf(request))
+    ctx['survey_result']="";
+    if(request.POST):
+        entry=request.POST.getlist(key='todel[]');
+        for var in entry:
+            delete(int(var));
+        result=getAll();
+        retList=[];
+        for var in result:
+            #ctx['survey_result']+='<li>'+'<input type="checkbox" name="todel[]" value="'+str(var.id)+'"/>'+str(var.name)+','+str(var.age)+','+str(var.gender)+','+str(var.email)+'</li>';
+            retList.append(var);
+        ctx['survey_result']=retList;
+    return render(request,"survey.html",ctx)
+def survey_show(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    ctx ={}
+    ctx.update(csrf(request))
+    ctx['survey_result']="";
+
+    result=getAll();
+    retList=[];
+    for var in result:
+        #ctx['survey_result']+='<li>'+'<input type="checkbox" name="todel[]" value="'+str(var.id)+'"/>'+str(var.name)+','+str(var.age)+','+str(var.gender)+','+str(var.email)+'</li>';
+        retList.append(var);
+    ctx['survey_result']=retList;
+    return render(request,"survey.html",ctx)
