@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^about', 'app.views.about', name='about'),
     url(r'^query1', 'app.views.query1', name='query1'),
     url(r'^search-post', 'app.search.search_post',name='mypost'),
+    url(r'^survey-post', 'app.survey.survey_post',name='mysurveypost'),
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {

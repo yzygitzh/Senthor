@@ -1,0 +1,73 @@
+﻿
+
+
+
+<!DOCTYPE html PUBLIC "-//w3c//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- conelec.html 
+     A document to present the user with a consumer electronics 
+     purchasing survey form 
+     -->
+
+<html>
+<head>
+
+    <title> Survey </title>
+</head>
+<body>
+<form 
+    action = "/survey-post" 
+    method = "post">
+    {% csrf_token %}
+<h2> Survey </h2>
+<p />
+<h4> Your Name: </h4>
+<p>
+<input type ="text"  name = "name"  />  <br />
+
+</p>
+<h4> Your Age : </h4>
+<p>
+<input type ="text"  name = "age"  /> <br />
+
+</p>
+<h4> Your Gender: </h4>
+<p>
+<input type = "radio"  name = "gender"  value = "female"  
+       checked = "checked" /> Female <br />
+<input type = "radio"  name = "gender"  value = "male" /> 
+    Male <br /> <br />
+</p>
+<h4> Your  Email: </h4>
+<p>
+<input type ="text"  name = "email"  />  <br />
+    
+</p>
+<input type = "submit"  value = "Submit Order" />
+<input type = "reset"  value = "Clear Order Form" />
+</form>
+
+<hr />
+<p>
+the results of the survey so far HERE
+<div id="result">
+    <form 
+    action = "/survey-post" 
+    method = "post">
+
+    {#{% csrf_token %}#}
+    <ol> 
+    {#{{survey_result}}#}
+    {% for var in survey_result %}
+        <li>{{var.name}}</li>
+    {% endfor %}
+    </ol>
+        
+    <input type="submit" value="Delete Selected">
+    </form>
+</div>
+</p>
+</body>
+</html>
+

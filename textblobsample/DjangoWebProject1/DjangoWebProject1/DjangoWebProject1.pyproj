@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
+    <Compile Include="app\survey.py" />
     <Compile Include="app\search.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,6 +59,7 @@
   <ItemGroup>
     <None Include="publishtest.pubxml" />
     <Content Include="app\templates\post.html" />
+    <Content Include="app\templates\survey.html" />
     <Content Include="Readme.md" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
