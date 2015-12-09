@@ -1,0 +1,38 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title> Senthor Main </title>
+	<script type="text/javascript" src="d3.js" charset="utf-8"></script>
+  <script src="jquery/jquery-2.1.1.min.js"></script>
+  
+
+</head>
+
+<body>
+
+	<h1> 我们现在的完成了GET请求机制 </h1>
+	<p> D3.js的一个Demo, 这段文字将变成红色 </p>
+
+	<script> 
+		d3.selectAll("p").style("color", "red"); 
+		var test = jQuery.parseJSON('{"test":"hhh"}');
+		$(document).ready(function(){
+		  $("button").click(function(){
+		    $.get("http://127.0.0.1:27015",{method:"demo", id:"2015"},function(data,status){
+		      alert("数据：" + data + "\n状态：" + status);
+		    });
+		  });
+		});
+	</script>
+	
+	<button> 发送一个GET请求 </button>
+
+</body>
+
+</html>

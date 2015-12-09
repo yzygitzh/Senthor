@@ -6,17 +6,17 @@ import pyjsonrpc
 
 class RequestHandler(pyjsonrpc.HttpRequestHandler):
 
-  @pyjsonrpc.rpcmethod
-  def demo(self, arg):
-      """Test method"""
-      return arg
+	@pyjsonrpc.rpcmethod
+	def query(self, arg):
+		get = " daemon get keyword " + arg 
+		return get
 
 
 # Threading HTTP-Server
 http_server = pyjsonrpc.ThreadingHttpServer(
-    server_address = ('115.28.244.26', 8080),
+    server_address = ('127.0.0.1', 8888),
     RequestHandlerClass = RequestHandler
 )
 print "Starting HTTP server ..."
-print "URL: http://115.28.244.26:8080"
+print "URL: http://127.0.0.1:8888"
 http_server.serve_forever()
