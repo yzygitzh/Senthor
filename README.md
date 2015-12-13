@@ -113,7 +113,7 @@ title, link和article的value是字符串，comments的value是一个array，该
 * 现在抓取时用的UserAgent是WP8（Lumia 520）以追求处理简单，如果哪天雅虎把这种网页下架了那这个爬虫就不能用了
 
 
-####crawler_yahoo(2015.12.13 updated by yzy): 
+####crawler_fox(2015.12.13 updated by yzy): 
 针对福克斯新闻网（www.foxnews.com）的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），用selenium配合scrapy实现抓取动态页面内容
 抓取评论时会召唤chrome,因此目前可能只能在图形界面下运行,等我电脑回来了再测试改进一下
 #####依赖
