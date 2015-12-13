@@ -85,8 +85,11 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 #####实现方式：
 * Scrapy
 	* 这是Python下的很强大的工具。大家如果不了解的话我在这里挂个官方Documentation的[链接](https://media.readthedocs.org/pdf/scrapy/1.0/scrapy.pdf)
+* Selenium
+	* 所向披靡的网页测试工具,用它挂上chrome来做爬虫虽然慢了点但是chrome有多强我们的爬虫就能有多强(
 
 #####各爬虫模块说明
+
 ####crawler_yahoo(2015.12.4 updated by yzy): 
 针对雅虎新闻网（news.yahoo.com）的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），xpath一波流
 #####依赖
@@ -108,6 +111,27 @@ title, link和article的value是字符串，comments的value是一个array，该
 #####注意事项
 * 英文雅虎的访问不够稳定，现在这个爬虫可能会漏掉一些新闻
 * 现在抓取时用的UserAgent是WP8（Lumia 520）以追求处理简单，如果哪天雅虎把这种网页下架了那这个爬虫就不能用了
+
+
+####crawler_yahoo(2015.12.13 updated by yzy): 
+针对福克斯新闻网（www.foxnews.com）的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），用selenium配合scrapy实现抓取动态页面内容
+抓取评论时会召唤chrome,因此目前可能只能在图形界面下运行,等我电脑回来了再测试改进一下
+#####依赖
+* scrapy
+* selenium
+* chrome
+* chromedriver: https://sites.google.com/a/chromium.org/chromedriver/home
+
+#####用法
+	cd crawler/crawler_fox
+	scrapy crawl crawler_fox > out.txt
+
+#####输出说明
+同雅虎新闻
+
+#####注意事项
+* foxnews的访问速度及其坑爹,因此现在超时时间设置较长(不然动态内容还没加载出来就停止加载了)
+* 找了小半年愣是没发现能像雅虎静态爬起来那么舒服的新闻网站...不过动态抓取的话selenium是通用手段
 
 
 
