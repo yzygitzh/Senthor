@@ -66,7 +66,6 @@ class spider_yahoo(scrapy.Spider):
     
     def parseComment(self, response):
         news_element = response.meta['news_element']
-        news_comment_element = {}
         for news_comment in response.xpath(self.news_comment_xpath).extract():
             news_element['comments'].append(news_comment)
         
