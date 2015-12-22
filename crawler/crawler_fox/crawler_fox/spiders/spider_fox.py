@@ -5,6 +5,7 @@ import json
 import sys
 # deal with dynamic contents
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 
 reload(sys)
@@ -81,9 +82,9 @@ class spider_yahoo(scrapy.Spider):
         news_element['comments'] = []
 
         # selenium comes to rescue!
-        options = webdriver.ChromeOptions()
-        options.add_argument('Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148 Safari/6533.18.5')
-        browser = webdriver.Chrome(chrome_options=options)
+        #options = webdriver.ChromeOptions()
+        #browser = webdriver.Chrome(chrome_options=options)
+        browser = webdriver.PhantomJS()
 
         get_timeout = 0
         browser.set_page_load_timeout(90)
@@ -107,5 +108,5 @@ class spider_yahoo(scrapy.Spider):
             for comment in browser.find_elements_by_xpath(xpath):
                 news_element['comments'].append(comment.text)
 
-        browser.close()
+        browser.quit()
         print json.dumps(news_element, ensure_ascii=False)
