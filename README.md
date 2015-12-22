@@ -134,7 +134,7 @@ title, link和article的value是字符串，comments的value是一个array，该
 
 
 ####crawler_theguardian(2015.12.22 updated by yzy): 
-针对 http://www.theguardian.com/ 的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），用selenium配合scrapy实现抓取动态页面内容
+针对 theguardian 的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），用selenium配合scrapy实现抓取动态页面内容
 抓取评论时会召唤PhantomJS
 #####依赖
 * scrapy
