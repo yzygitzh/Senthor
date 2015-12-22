@@ -83,13 +83,8 @@ class spider_yahoo(scrapy.Spider):
 
         # selenium comes to rescue!
         #options = webdriver.ChromeOptions()
-        #options.add_argument('Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148 Safari/6533.18.5')
         #browser = webdriver.Chrome(chrome_options=options)
-        dcap = dict(DesiredCapabilities.PHANTOMJS)
-        dcap["phantomjs.page.settings.userAgent"] = (
-            "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148 Safari/6533.18.5"
-        ) 
-        browser = webdriver.PhantomJS(desired_capabilities=dcap)
+        browser = webdriver.PhantomJS()
 
         get_timeout = 0
         browser.set_page_load_timeout(90)
