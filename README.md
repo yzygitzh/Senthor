@@ -133,5 +133,19 @@ title, link和article的value是字符串，comments的value是一个array，该
 * 找了小半年愣是没发现能像雅虎静态爬起来那么舒服的新闻网站...不过动态抓取的话selenium是通用手段
 
 
+####crawler_theguardian(2015.12.22 updated by yzy): 
+针对http://www.theguardian.com/的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），用selenium配合scrapy实现抓取动态页面内容
+抓取评论时会召唤PhantomJS
+#####依赖
+* scrapy
+* selenium
+* PhantomJS2.0 https://github.com/Pyppe/phantomjs2.0-ubuntu14.04x64
+
+#####用法
+	cd crawler/crawler_theguardian
+	scrapy crawl crawler_theguardian > out.txt
+
+#####输出说明
+同雅虎新闻
 
 
