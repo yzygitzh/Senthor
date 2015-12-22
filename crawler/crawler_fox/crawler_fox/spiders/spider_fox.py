@@ -108,5 +108,5 @@ class spider_yahoo(scrapy.Spider):
             for comment in browser.find_elements_by_xpath(xpath):
                 news_element['comments'].append(comment.text)
 
-        browser.close()
+        browser.quit()
         print json.dumps(news_element, ensure_ascii=False)
