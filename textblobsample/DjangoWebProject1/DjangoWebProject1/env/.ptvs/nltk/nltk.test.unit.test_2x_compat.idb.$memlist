@@ -1,8 +1,0 @@
-Text
-TestTextTransliteration
-setup_module
-absolute_import
-unicode_literals
-python_2_unicode_compatible
-PY3
-unittest

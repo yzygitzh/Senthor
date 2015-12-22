@@ -1,9 +1,0 @@
-load_parser
-demo
-ApplicationExpression
-parse_with_bindops
-CooperStore
-Variable
-print_function
-LambdaExpression
-InstantiateVarsChart

@@ -1,7 +1,0 @@
-TAG_PREFIX
-__all__
-json
-json_tags
-register_tag
-JSONTaggedDecoder
-JSONTaggedEncoder

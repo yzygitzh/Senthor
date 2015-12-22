@@ -1,4 +1,4 @@
-d3.selectAll("p").style("color", "red"); 
+//d3.selectAll("p").style("color", "red"); 
 //var dataset = [ 5, 10, 15, 20, 25 ];
 // var dataset = [];                        //Initialize empty array
 // for (var i = 0; i < 25; i++) {           //Loop 25 times

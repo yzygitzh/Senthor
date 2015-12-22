@@ -9,28 +9,45 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 	<title> Senthor Main </title>
 	<script type="text/javascript" src="d3/d3.min.js" charset="utf-8"></script>
-  <script src="jquery/jquery-2.1.1.min.js"></script>
+  <script src="jquery/jquery-2.1.1.min.js"></script> 
   <link rel="stylesheet" href="testcss.css">
 </head>
 
 <body>
 
-	<h1> 我们现在的完成了GET请求机制 </h1>
-	<p> D3.js的一个Demo, 这段文字将变成红色 </p>
+	<h1 align = "center"> Senthor </h1>
+	<h2 align = "center"> A Sentimental Analysis Tool for News Comments </h2>
 	<script type="text/javascript" src="jsd3test.js" charset="utf-8"></script>
-	</br>
-	<script> 
-
-		var test = jQuery.parseJSON('{"test":"hhh"}');
-		$(document).ready(function(){
-		  $("button").click(function(){
-		    $.get("http://127.0.0.1:27015",{method:"demo", id:"2015"},function(data,status){
-		      alert("数据：" + data + "\n状态：" + status);
-		    });
-		  });
+	<script>
+		function keywordSearch(args){
+			//alert(args.keyword.value);
+			value = args.keyword.value
+			console.log("Catch value is "+value);
+	  	$.get("http://127.0.0.1:27015", {method:"demo", id:value}, function(data,status){
+	    	var decodeData = decodeURI(data);
+	    	console.log(decodeData);
+	    	a = JSON.parse(decodeData);
+	    	console.log("Return data is " + a.name)
+	  	});
+	  	return false;
+		}
+		$('#id1').submit(function () {
+ 			keywordSearch(this);
+ 			return false;
 		});
 	</script>
-	<button> 发送一个GET请求 </button>
+
+	</br>
+
+	<form id = "id1"> 
+		关键词:
+		<input id = "id2" type="text" name="keyword" />
+		<br/>
+		<input type="submit" value="提交"/>	
+		<br/>
+	</form>
+
+
 </body>
 
 </html>

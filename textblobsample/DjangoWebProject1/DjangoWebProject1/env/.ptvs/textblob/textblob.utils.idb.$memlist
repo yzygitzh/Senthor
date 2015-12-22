@@ -1,8 +1,0 @@
-strip_punc
-tree2str
-lowerstrip
-filter_insignificant
-PUNCTUATION_REGEX
-string
-re
-is_filelike

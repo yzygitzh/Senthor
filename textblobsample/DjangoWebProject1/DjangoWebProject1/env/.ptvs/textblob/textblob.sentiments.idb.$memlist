@@ -1,7 +1,0 @@
-PatternAnalyzer
-CONTINUOUS
-absolute_import
-NaiveBayesAnalyzer
-DISCRETE
-__all__
-BaseSentimentAnalyzer

@@ -1,7 +1,0 @@
-SkipTest
-absolute_import
-TestCase
-skip
-skipIf
-wraps
-py26

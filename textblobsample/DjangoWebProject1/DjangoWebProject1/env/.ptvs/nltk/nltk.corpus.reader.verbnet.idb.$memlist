@@ -1,7 +1,0 @@
-XMLCorpusReader
-unicode_literals
-re
-compat
-VerbnetCorpusReader
-textwrap
-defaultdict

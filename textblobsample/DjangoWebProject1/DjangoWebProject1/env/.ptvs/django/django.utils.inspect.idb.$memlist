@@ -1,9 +1,0 @@
-func_has_no_args
-func_supports_parameter
-HAS_INSPECT_SIGNATURE
-absolute_import
-inspect
-getargspec
-get_func_args
-func_accepts_kwargs
-sys

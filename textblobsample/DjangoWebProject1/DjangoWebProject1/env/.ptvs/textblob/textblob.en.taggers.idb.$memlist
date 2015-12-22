@@ -1,8 +1,0 @@
-BaseTagger
-absolute_import
-pattern_tag
-nltk
-requires_nltk_corpus
-NLTKTagger
-word_tokenize
-PatternTagger

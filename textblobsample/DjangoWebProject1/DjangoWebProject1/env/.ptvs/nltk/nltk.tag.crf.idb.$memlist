@@ -1,7 +1,0 @@
-pycrfsuite
-CRFTagger
-absolute_import
-unicode_literals
-unicodedata
-TaggerI
-re
