@@ -18,6 +18,19 @@
 	<h1 align = "center"> Senthor </h1>
 	<h2 align = "center"> A Sentimental Analysis Tool for News Comments </h2>
 	<script type="text/javascript" src="jsd3test.js" charset="utf-8"></script>
+
+	</br>
+	</br>
+	</br>
+
+
+	<form align = "center" id = "id1"> 
+		Just type some keywords:
+		<input id = "id2" type="text" name="keyword" />
+		<input type="submit" value="Senthor Search"/>	
+		<br/>
+	</form>
+	<p id = "new"></p>
 	<script>
 		function keywordSearch(args){
 			//alert(args.keyword.value);
@@ -27,7 +40,8 @@
 	    	var decodeData = decodeURI(data);
 	    	console.log(decodeData);
 	    	a = JSON.parse(decodeData);
-	    	console.log("Return data is " + a.name)
+	    	document.getElementById("new").innerHTML = "Examples: " + decodeData;
+	    	console.log("Return data is " + a.name);
 	  	});
 	  	return false;
 		}
@@ -36,16 +50,6 @@
  			return false;
 		});
 	</script>
-
-	</br>
-
-	<form id = "id1"> 
-		关键词:
-		<input id = "id2" type="text" name="keyword" />
-		<br/>
-		<input type="submit" value="提交"/>	
-		<br/>
-	</form>
 
 
 </body>
