@@ -1,35 +1,88 @@
 <!-- index.html -->
-
 <!DOCTYPE html>
-
 <html>
+	<head>
+	 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<title> Senthor Main </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="d3/d3.min.js" charset="utf-8"></script>
 
-<head>
+	 	<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+    	<script src="flatui/dist/js/vendor/jquery.min.js"></script>
+    	
+    	<!-- Include all compiled plugins (below), or include individual files as needed -->
+    	<script src="flatui/dist/js/flat-ui.min.js"></script>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title> Senthor Main </title>
-	<script type="text/javascript" src="d3/d3.min.js" charset="utf-8"></script>
-  <script src="jquery/jquery-2.1.1.min.js"></script> 
-  <link rel="stylesheet" href="testcss.css">
-</head>
+   		<!-- Loading Bootstrap -->
+    	<link href="flatui/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    	<!-- Loading Flat UI -->
+   		<link href="flatui/dist/css/flat-ui.min.css" rel="stylesheet">
+   		<link href="flatui/docs/css/docs.css" rel="stylesheet">
+
+	</head>
 
 <body>
-
-	<h1 align = "center"> Senthor </h1>
-	<h2 align = "center"> A Sentimental Analysis Tool for News Comments </h2>
-	<script type="text/javascript" src="jsd3test.js" charset="utf-8"></script>
+	<ul class = "demo-sidebar hide-on-tablets">
+		<li><a href="#senth-analysis">Analysis</a></li>
+		<li><a href="#senth-about">About Us</a></li>
+	</ul>
+	<div class="container">
+		<h1 align = "center"> Senthor </h1>
+		<h3 align = "center"> A Sentimental Analysis Tool for News Comments </h3>
+    </div>
 
 	</br>
 	</br>
 	</br>
+    <div class="container">
+    	<div id="senth-analysis"></div>
+    	<div class="demo-row">
+        	<div class="demo-title">
+         		 <h3>Analysis:</h3>
+        	</div>
 
+        	<div align="center" class="demo-content">
+				</br>
+				</br>
+				</br>
+				<form id = "id1"> 
+					<h6>Just type some keywords:</h6>
+					<input id = "id2" type="text" name="keyword" placeholder="Enter keywords..." class="form-control"/>
+					</br>
+					<button type="submit" class="btn btn-embossed btn-primary">Submit!</button>
+					</br>
+				</form>
+				<script type="text/javascript" src="jsd3test.js" charset="utf-8"></script>
 
-	<form align = "center" id = "id1"> 
-		Just type some keywords:
-		<input id = "id2" type="text" name="keyword" />
-		<input type="submit" value="Senthor Search"/>	
-		<br/>
-	</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+    	<div id="senth-about"></div>
+    	<div class="demo-row">
+    		</br>
+			</br>
+			</br>
+        	<div class="demo-title">
+         		 <h3>About Us:</h3>
+        	</div>
+
+        	<div align="center" class="demo-content">
+				<p class="ptl">
+					<strong>We are the students from Peking University</strong>
+					<br/>
+					Yang ZiYue <br/>
+					Liu JiaLin <br/>
+					Li Qian <br/>
+					Wu Peng <br/>
+				</p>
+			</div>
+		</div>
+		
+	</div>
+
 	<p id = "new"></p>
 	<script>
 		function keywordSearch(args){

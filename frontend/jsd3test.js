@@ -21,22 +21,22 @@ var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
 // 	    }
 // 	});
 
-d3.select("body").selectAll("div")
-    .data(dataset)
-    .enter()
-    .append("div")
-    .attr("class", "bar")
-    .style("height", function(d) {
-    	return d*10 + "px";
-	})
-	.style("width", "20px")
-	.style("color", "red");
+// d3.select("body").selectAll("div")
+//     .data(dataset)
+//     .enter()
+//     .append("div")
+//     .attr("class", "bar")
+//     .style("height", function(d) {
+//     	return d*10 + "px";
+// 	})
+// 	.style("width", "20px")
+// 	.style("color", "red");
 
-var h = 100;
+var h = 300;
 var w = 500;
 var svg = d3.select("body")
   .append("svg")
-  .attr("width", w)
+  .attr("width", "100%")
   .attr("height", h);
 
 var rects = svg.selectAll("rect")
@@ -45,12 +45,12 @@ var rects = svg.selectAll("rect")
     .append("rect");
 
 rects.attr("x", function(d, i) {
-    return i * 20;  //Bar width of 20 plus 1 for padding
+    return (i + 12)* 30;  //Bar width of 20 plus 1 for padding
 })
-   .attr("y", function(d) {return h - d*2;})
-   .attr("width", w / dataset.length - 10)
+   .attr("y", function(d) {return h - d*10;})
+   .attr("width", 700 / dataset.length - 10)
    .attr("height", function(d) {
-    return d*2;
+    return d*10;
 })
    .attr("fill", function(d) {
     return "rgb(0, "+ (d * 10) + "," + (d * 10) + ")";
@@ -64,10 +64,10 @@ svg.selectAll("text")
         return d;
    })
    .attr("x", function(d, i) {
-        return i * 20;
+        return (i + 12) * 30;
    })
    .attr("y", function(d) {
-        return h - (d * 2) + 10;
+        return h - (d * 10) + 10;
    })
    .attr("font-family", "sans-serif")
 	.attr("font-size", "11px")
