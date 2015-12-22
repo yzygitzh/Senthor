@@ -115,11 +115,11 @@ title, link和article的value是字符串，comments的value是一个array，该
 
 ####crawler_fox(2015.12.13 updated by yzy): 
 针对福克斯新闻网（www.foxnews.com）的爬虫，抓取四个分类（US, WORLD, TECH, SCIENCE），用selenium配合scrapy实现抓取动态页面内容
-抓取评论时会召唤phantomJS
+抓取评论时会召唤PhantomJS
 #####依赖
 * scrapy
 * selenium
-* phantomJS
+* PhantomJS2.0 https://github.com/Pyppe/phantomjs2.0-ubuntu14.04x64
 
 #####用法
 	cd crawler/crawler_fox
