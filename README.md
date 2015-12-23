@@ -98,6 +98,8 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 #####用法
 	cd crawler/crawler_yahoo
 	scrapy crawl crawler_yahoo > out.txt
+	
+	给定的新闻链接文件in.txt放在运行scrapy命令的目录下
 
 #####输出说明
 每一行是一个JSON格式的新闻，一个新闻包含title, link, article, comments四种属性。
@@ -124,6 +126,8 @@ title, link和article的value是字符串，comments的value是一个array，该
 #####用法
 	cd crawler/crawler_fox
 	scrapy crawl crawler_fox > out.txt
+	
+	给定的新闻链接文件in.txt放在运行scrapy命令的目录下
 
 #####输出说明
 同雅虎新闻
@@ -144,6 +148,8 @@ title, link和article的value是字符串，comments的value是一个array，该
 #####用法
 	cd crawler/crawler_theguardian
 	scrapy crawl crawler_theguardian > out.txt
+	
+	给定的新闻链接文件in.txt放在运行scrapy命令的目录下
 
 #####输出说明
 同雅虎新闻

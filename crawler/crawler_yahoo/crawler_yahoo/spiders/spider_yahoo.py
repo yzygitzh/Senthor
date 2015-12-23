@@ -34,6 +34,14 @@ class spider_yahoo(scrapy.Spider):
     def parse(self, response):
         for link in response.xpath(self.news_link_xpath).extract():
             yield scrapy.Request(response.urljoin(link), callback=self.parseNews)
+        try:
+            with open('in.txt', 'r') as file_in:
+                link_list = file_in.read().split('\n')
+                for link in link_list:
+                    if len(link) != 0:
+                        yield scrapy.Request(link, callback=self.parseNews)
+        except:
+            None
  
     def parseNews(self, response):
         news_element = {}

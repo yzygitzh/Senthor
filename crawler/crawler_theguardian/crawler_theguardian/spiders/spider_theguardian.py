@@ -46,6 +46,14 @@ class spider_yahoo(scrapy.Spider):
                link.find('http://www.theguardian.com/technology/') != -1:
                 #print response.urljoin(link)
                 yield scrapy.Request(response.urljoin(link), callback=self.parseNews)
+        try:
+            with open('in.txt', 'r') as file_in:
+                link_list = file_in.read().split('\n')
+                for link in link_list:
+                    if len(link) != 0:
+                        yield scrapy.Request(link, callback=self.parseNews)
+        except:
+            None
         
  
     def parseNews(self, response):

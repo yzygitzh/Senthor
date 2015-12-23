@@ -56,6 +56,14 @@ class spider_yahoo(scrapy.Spider):
             for link in response.xpath(self.news_link_xpath_sci).extract():
                 yield scrapy.Request(response.urljoin(link), callback=self.parseNews)
         #    yield scrapy.Request(response.urljoin(link), callback=self.parseNews)
+        try:
+            with open('in.txt', 'r') as file_in:
+                link_list = file_in.read().split('\n')
+                for link in link_list:
+                    if len(link) != 0:
+                        yield scrapy.Request(link, callback=self.parseNews)
+        except:
+            None
  
     def parseNews(self, response):
         news_element = {}
@@ -87,7 +95,7 @@ class spider_yahoo(scrapy.Spider):
         browser = webdriver.PhantomJS()
 
         get_timeout = 0
-        browser.set_page_load_timeout(90)
+        browser.set_page_load_timeout(10)
         try:
             browser.get(news_element['link'])
         except:
@@ -96,7 +104,7 @@ class spider_yahoo(scrapy.Spider):
             click_retry_count = 0
             while click_retry_count < 3: 
                 try:
-                    time.sleep(5)
+                    time.sleep(3)
                     show_comments = browser.find_element_by_xpath(self.news_comment_button_xpath)
                     show_comments.click()
                 except:
