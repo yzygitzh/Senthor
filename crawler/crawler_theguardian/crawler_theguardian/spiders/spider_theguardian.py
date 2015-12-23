@@ -58,6 +58,7 @@ class spider_yahoo(scrapy.Spider):
  
     def parseNews(self, response):
         news_element = {}
+        news_element['source'] = self.name
         #news_element = CrawlerYahooItem()
         news_element['link'] = response.url;
         
