@@ -87,6 +87,8 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 	* 这是Python下的很强大的工具。大家如果不了解的话我在这里挂个官方Documentation的[链接](https://media.readthedocs.org/pdf/scrapy/1.0/scrapy.pdf)
 * Selenium
 	* 所向披靡的网页测试工具,用它挂上chrome来做爬虫虽然慢了点但是chrome有多强我们的爬虫就能有多强(
+* PhantomJS
+	* A browser without GUI
 
 #####各爬虫模块说明
 
@@ -98,7 +100,7 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 #####用法
 	cd crawler/crawler_yahoo
 	scrapy crawl crawler_yahoo > out.txt
-	
+
 	给定的新闻链接文件in.txt放在运行scrapy命令的目录下
 
 #####输出说明
