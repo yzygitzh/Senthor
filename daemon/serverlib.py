@@ -95,6 +95,7 @@ def middleware_main():
     #print 'Request is:', request
     # close connection
     conn.close()
+    print "Success Close"
   s.shutdown()
   s.close()
 
