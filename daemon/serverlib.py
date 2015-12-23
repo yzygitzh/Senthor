@@ -119,7 +119,7 @@ def crawler_worker(crawler_name):
   print "Invoking " + crawler_name
   # other modules use out.txt only
   os.system('cd ../crawler/crawler_yahoo; \
-             rm out.txt; \
+             rm tmp.txt; \
              scrapy crawl crawler_yahoo > tmp.txt; \
              mv tmp.txt ../../daemon/%s_out.txt' % crawler_name)
   print crawler_name + "'s work done"
