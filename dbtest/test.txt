@@ -1,0 +1,3 @@
+{"source": "crawler_yahoo", "article": "Paris Terrorism has cause deaths", "link": "linkt1", "comments": ["h1","h2", "h3", "h4"], "title": "t1"}
+{"source": "crawler_yahoo", "article": "Cellphone google apple android", "link": "linkt2", "comments": ["h1","h2", "h3", "h4"], "title": "t2"}
+{"source": "crawler_yahoo", "article": "Cellphone microsoft windows phone ", "link": "linkt3", "comments": ["h1","h2", "h3", "h4"], "title": "t3"}

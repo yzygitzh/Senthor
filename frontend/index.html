@@ -73,8 +73,8 @@
 				<p class="ptl">
 					<strong>We are the students from Peking University</strong>
 					<br/>
-					Yang ZiYue <br/>
-					Liu JiaLin <br/>
+					Yang Ziyue <br/>
+					Liu Jialin <br/>
 					Li Qian <br/>
 					Wu Peng <br/>
 				</p>
@@ -85,6 +85,16 @@
 
 	<p align = "center" id = "new"></p>
 	<script>
+		var data = '[{"link": "linkt2", "pole": [0.5, 0.5], "extract": "Cellphone google apple android...", "source": "crawler_yahoo", "title": "t2"}, {"link": "linkt3", "pole": [0.5, 0.5], "extract": "Cellphone microsoft windows phone ...", "source": "crawler_yahoo", "title": "t3"}]'
+		a = JSON.parse(data)
+		console.log(a[0]["link"])
+
+
+
+
+
+
+
 		function keywordSearch(args){
 			//alert(args.keyword.value);
 			value = args.keyword.value
