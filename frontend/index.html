@@ -97,9 +97,9 @@
 	    	var decodeData = decodeURI(data);
 	    	console.log(decodeData);
 	    	a = JSON.parse(decodeData);
-	    	var demo = "Examples: \n\n";
+	    	var demo = "Examples: </br>";
 	    	for (var i = 0; i < a.length; i++){
-	    		demo += JSON.stringify(a[i]) + "\n";
+	    		demo += JSON.stringify(a[i]) + "</br>";
 	    		console.log(a[i]);
 	    	}
 	    	document.getElementById("new").innerHTML = demo;
