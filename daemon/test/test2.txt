@@ -1,2 +1,2 @@
-{"source": "crawler_yahoo", "article": "Cellphone google apple android", "link": "linkt2", "comments": ["h1","h2", "h5", "h6"], "title": "t2"}
-{"source": "crawler_yahoo", "article": "Cellphone microsoft windows phone ", "link": "linkt3", "comments": ["h1","h2", "h7", "h8"], "title": "t3"}
+{"source": "crawler_test", "article": "Paris Terrorism has cause deaths", "link": "linkt1", "comments": ["Gov should not allow them to comein","Terrible to here that", "terrible event"], "title": "Paris Terrorism"}
+{"source": "crawler_test", "article": "Google system's name is Android M, and this system is brand new", "link": "linkt2", "comments": ["I love it too","much better than Android L"], "title": "Google's new system Android M"}

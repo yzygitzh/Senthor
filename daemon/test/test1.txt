@@ -1,3 +1,3 @@
-{"source": "crawler_yahoo", "article": "Paris Terrorism has cause deaths", "link": "linkt1", "comments": ["h1","h2", "h3", "h4"], "title": "t1"}
-{"source": "crawler_yahoo", "article": "Cellphone google apple android", "link": "linkt2", "comments": ["h1","h2", "h3", "h4"], "title": "t2"}
-{"source": "crawler_yahoo", "article": "Cellphone microsoft windows phone ", "link": "linkt3", "comments": ["h1","h2", "h3", "h4"], "title": "t3"}
+{"source": "crawler_test", "article": "Paris Terrorism has cause deaths", "link": "linkt1", "comments": ["sorry","so sad", "terrible event"], "title": "Paris Terrorism"}
+{"source": "crawler_test", "article": "Google system's name is Android M, and this system is brand new", "link": "linkt2", "comments": ["I love it","not good at all"], "title": "Google's new system Android M"}
+{"source": "crawler_test", "article": "Microsoft's mobile phone system is called Windows Phone, which has much fewer app than Apple's iOS system. ", "link": "linkt3", "comments": ["Nobody use it...","It's a jock OK? ", "Microsoft forever!", "Yes why not use it ?"], "title": "Microsoft's Lumia 950XL with new Winphone 10 system"}

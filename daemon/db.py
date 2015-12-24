@@ -9,6 +9,8 @@ import multiprocessing
 import time
 import pymongo
 import json
+from textblob import TextBlob
+
 
 # Start the MongoDB daemon in the background
 # You should not use this function in your code
@@ -50,8 +52,14 @@ def db_query_title_count(title):
 		return "", 0
 
 # A sentiment calculation simulator
-def sentiment_cal(list):
-	return 0.5
+def sentiment_cal(List):
+	result = 0.0
+	for text in List:
+		result += TextBlob(text).sentiment.polarity
+		print text, TextBlob(text).sentiment.polarity
+
+	result /= len(List)
+	return result
 
 # Creat a new entry for the new article in the MongoDB
 def db_insert_article(entry):
@@ -135,8 +143,10 @@ def db_filter_by_crawlertime():
 			cyahoo.write(record["link"]+"\n")
 		elif (source.find("gaurd") != -1):
 			cgaurd.write(record["link"]+"\n")
-		else:
+		elif (source.find("fox") != -1):
 			cfox.write(record["link"]+"\n")
+		else:
+			pass
 	cfox.close()
 	cgaurd.close()
 	cyahoo.close()
@@ -148,7 +158,7 @@ def db_test():
 	db_handle_json("test/test2.txt")
 	print os.system("pwd")
 	#db_handle_json("../daemon/crawler_yahoo_out.txt")
-	db_query("cellphone")
+	db_query("Microsoft")
 	db_filter_by_crawlertime()
 
 
@@ -166,7 +176,7 @@ if __name__=="__main__":
 	# *********************************
 
 	# start the MongoDB service in the background
-	db_start()
+	#db_start()
 	# get the service handler
 	# A test program
 	db_test()
