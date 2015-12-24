@@ -93,7 +93,7 @@
 			//alert(args.keyword.value);
 			value = args.keyword.value
 			console.log("Catch value is "+value);
-	  	$.get("http://127.0.0.1:27015", {method:"demo", id:value}, function(data,status){
+	  	$.get("http://104.236.131.71:27015", {method:"demo", id:value}, function(data,status){
 	    	var decodeData = decodeURI(data);
 	    	console.log(decodeData);
 	    	a = JSON.parse(decodeData);
