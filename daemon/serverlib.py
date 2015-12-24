@@ -13,8 +13,8 @@ from textblob.sentiments import NaiveBayesAnalyzer
 import time
 import sched
 import multiprocessing
-import codecs
 import json
+import db
 
 # Timer
 FIXED_TIME = 3600
@@ -35,8 +35,13 @@ crawler_name_list = ['crawler_yahoo', 'crawler_fox', 'crawler_theguardian']
 
 
 def doQuery(arg):
-  print os.system("ls -ah")
-  return '''{"name":"''' + unicode(arg) + '''..."}'''
+  backupStr = '''[{"name":"''' + unicode(arg) + '''..."}]'''
+  print arg
+  try:
+    backupStr = db.db_query(arg)
+  except:
+    pass
+  return backupStr
 
 
 
@@ -110,7 +115,7 @@ def getTextOverallSentiment(text):
   result=()
   result=blob.sentiment
   return result
-  
+
 def getPatternAnalyzerSentiment(text):
   blob=TextBlob(text)
   result=()
