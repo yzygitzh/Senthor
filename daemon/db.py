@@ -76,7 +76,7 @@ def db_update_article(entry):
 	dbentry["pole"].append(newpos)
 	dbentry["crawltime"] += 1
 	dbentry["comments"] = cmt_list + filter_comment
-	db.atest.update_one({"title": entry["title"]}, {"$set":dbentry})
+	db.atest.update_one({"title": entry["title"]}, {"$set": {"pole" : dbentry["pole"], "crawltime": dbentry["crawltime"], "comments" : dbentry["comments"]}})
 
 # Read a batch of json from the "filename" file.
 # Should be called after the crawlers finish their jobs
