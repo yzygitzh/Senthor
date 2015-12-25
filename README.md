@@ -109,6 +109,7 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 #####输出说明
 每一行是一个JSON格式的新闻，一个新闻包含source, title, link, article, comments五种属性。
 source是新闻来源；
+appear_time是新闻第一次出现时间；
 title是新闻标题；
 link是新闻链接；
 article是新闻内容；
