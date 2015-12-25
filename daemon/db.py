@@ -121,6 +121,7 @@ def db_query(keys):
 		recordDict["title"] = record["title"]
 		recordDict["link"] = record["link"]
 		recordDict["source"] = record["source"]
+		recordDict["appear_time"] = record["appear_time"]
 		recordJson = json.JSONEncoder().encode(recordDict)
 		full_list.append(recordDict)
 	result = json.dumps(full_list)
