@@ -97,7 +97,6 @@ class spider_yahoo(scrapy.Spider):
             click_retry_count = 0
             while click_retry_count < 3: 
                 try:
-                    time.sleep(1)
                     show_comments = browser.find_element_by_xpath(self.news_comment_button_xpath)
                     show_comments.click()
                 except:
