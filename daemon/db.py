@@ -121,6 +121,7 @@ def db_query(keys):
 		recordDict["title"] = record["title"]
 		recordDict["link"] = record["link"]
 		recordDict["source"] = record["source"]
+		recordDict["appear_time"] = record["appear_time"]
 		recordJson = json.JSONEncoder().encode(recordDict)
 		full_list.append(recordDict)
 	result = json.dumps(full_list)
@@ -132,9 +133,9 @@ def db_query(keys):
 #  An API for crawlers to trace all the fresh articles in the Database
 def db_filter_by_crawlertime():
 	db = pymongo.MongoClient().newtest
-	cfox = open("../crawler/crawler_fox/inc.txt","w")
-	cgaurd = open("../crawler/crawler_theguardian/inc.txt","w")
-	cyahoo = open("../crawler/crawler_yahoo/inc.txt","w")
+	cfox = open("../crawler/crawler_fox/in.txt","w")
+	cgaurd = open("../crawler/crawler_theguardian/in.txt","w")
+	cyahoo = open("../crawler/crawler_yahoo/in.txt","w")
 
 	for record in db.atest.find({"crawltime": {"$lt": 24}}):
 		source = record["source"]

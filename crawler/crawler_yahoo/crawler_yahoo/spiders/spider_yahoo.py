@@ -3,6 +3,7 @@ from scrapy.linkextractors import LinkExtractor
 from crawler_yahoo.items import CrawlerYahooItem
 import json
 import sys
+import time
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -47,6 +48,7 @@ class spider_yahoo(scrapy.Spider):
         news_element = {}
         #news_element = CrawlerYahooItem()
         news_element['source'] = self.name
+        news_element['appear_time'] = str(time.time())
         news_element['link'] = response.url;
         
         # fetch news_title

@@ -15,6 +15,7 @@ import sched
 import multiprocessing
 import json
 import db
+import time
 
 # Timer
 FIXED_TIME = 3600
@@ -133,7 +134,10 @@ def crawler_worker(crawler_name):
 
 def crawler():
   crawler_process_list = []
-  '''
+  
+  # get in.txt's ready
+  db_filter_by_crawlertime()
+
   for crawler_name in crawler_name_list:
     crawler_process_list.append(multiprocessing.Process(target=crawler_worker,args=(crawler_name,)))
   # start crawlers
@@ -142,7 +146,10 @@ def crawler():
   # wait crawlers terminate
   for crawler_process in crawler_process_list:
     crawler_process.join(timeout = FIXED_TIME / 2)
-  '''
+  
+  for crawler_name in crawler_name_list:
+    db_handle_json("%s_out.txt" % crawler_name)
+
   schedule.enter(FIXED_TIME, 0, crawler, ()) 
   schedule.run()
 
