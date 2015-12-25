@@ -54,6 +54,8 @@ def db_query_title_count(title):
 # A sentiment calculation simulator
 def sentiment_cal(List):
 	result = 0.0
+	if (List == []):
+		return 0.0
 	for text in List:
 		result += TextBlob(text).sentiment.polarity
 		print text, TextBlob(text).sentiment.polarity
@@ -66,7 +68,7 @@ def db_insert_article(entry):
 	db = pymongo.MongoClient().newtest
 	entry["crawltime"] = 1
 	entry["pole"] = [sentiment_cal(entry["comments"])]
-	entry["extract"] = entry["article"][:50]
+	entry["extract"] = entry["article"][:255]
 	entry["extract"] += "..."
 	result = db.atest.insert_one(entry).inserted_id
 
@@ -80,13 +82,26 @@ def db_update_article(entry):
 	for comment in entry["comments"]:
 		if (comment in cmt_list): continue
 		filter_comment.append(comment)
+
+	l1 = len(cmt_list)
+	l2 = len(filter_comment)
+	if ((l1 + l2) == 0): 
+		newpos = 0.0
+	else:
+		tmppos = sentiment_cal(filter_comment)*1.0
+		newpos = (l1 * dbentry['pole'][-1] + l2 * tmppos) / (l1 + l2)
+
+	'''
 	if (filter_comment == []):
 		if (dbentry["pole"] == []):
 			newpos = 0.0
 		else:
 			newpos = dbentry["pole"][-1]
 	else:
-		newpos = sentiment_cal(filter_comment)
+		tmp = sentiment_cal(filter_comment)
+		newpos = 
+	'''
+
 	dbentry["pole"].append(newpos)
 	dbentry["crawltime"] += 1
 	dbentry["comments"] = cmt_list + filter_comment
@@ -97,9 +112,12 @@ def db_update_article(entry):
 # and write the output JSONs into output file
 def db_handle_json(filename):
 	db = pymongo.MongoClient().newtest
+	print "[DEBUG]: ", filename
 	li = open(filename,"r").read().split("\n")
+
 	for line in li:
 		if (line == ""): break
+		print line
 		entry = json.loads(line)
 		title = entry["title"]
 		Oid, cnt = db_query_title_count(title)
@@ -162,12 +180,12 @@ def db_filter_by_crawlertime():
 def db_test():
 	db = pymongo.MongoClient().newtest
 	db.atest.delete_many({})
-	db_handle_json("test/test1.txt")
-	db_handle_json("test/test2.txt")
-	print os.system("pwd")
+	#db_handle_json("test/test1.txt")
+	#db_handle_json("test/test2.txt")
+	#print os.system("pwd")
 	#db_handle_json("../daemon/crawler_yahoo_out.txt")
-	db_query("Microsoft")
-	db_filter_by_crawlertime()
+	#db_query("Microsoft")
+	#db_filter_by_crawlertime()
 
 
 # This is a MongoDB services package 

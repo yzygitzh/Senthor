@@ -14,8 +14,8 @@ import time
 import sched
 import multiprocessing
 import json
-import db
 import time
+from db import *
 
 # Timer
 FIXED_TIME = 3600
@@ -33,20 +33,16 @@ Access-Control-Allow-Origin: *
 '''
 # crawler module
 crawler_name_list = ['crawler_yahoo', 'crawler_fox', 'crawler_theguardian']
-
+#crawler_name_list = ['crawler_yahoo']
 
 def doQuery(arg):
   backupStr = '''[{"name":"''' + unicode(arg) + '''..."}]'''
   print arg
   try:
-    backupStr = db.db_query(arg)
+    backupStr = db_query(arg)
   except:
     pass
   return backupStr
-
-
-
-
 
 class RequestHandler(pyjsonrpc.HttpRequestHandler):
   @pyjsonrpc.rpcmethod
@@ -154,6 +150,6 @@ def crawler():
   schedule.run()
 
 def crawler_main():
-  schedule.enter(FIXED_TIME, 0, crawler, ()) 
+  schedule.enter(1, 0, crawler, ()) 
   schedule.run()
 
