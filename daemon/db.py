@@ -80,7 +80,13 @@ def db_update_article(entry):
 	for comment in entry["comments"]:
 		if (comment in cmt_list): continue
 		filter_comment.append(comment)
-	newpos = sentiment_cal(filter_comment)
+	if (filter_comment == []):
+		if (dbentry["pole"] == []):
+			newpos = 0.0
+		else:
+			newpos = dbentry["pole"][-1]
+	else:
+		newpos = sentiment_cal(filter_comment)
 	dbentry["pole"].append(newpos)
 	dbentry["crawltime"] += 1
 	dbentry["comments"] = cmt_list + filter_comment
@@ -121,7 +127,8 @@ def db_query(keys):
 		recordDict["title"] = record["title"]
 		recordDict["link"] = record["link"]
 		recordDict["source"] = record["source"]
-		recordDict["appear_time"] = record["appear_time"]
+		t = time.localtime(float(record["appeartime"]))
+		recordDict["appeartime"] = [t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec]
 		recordJson = json.JSONEncoder().encode(recordDict)
 		full_list.append(recordDict)
 	result = json.dumps(full_list)

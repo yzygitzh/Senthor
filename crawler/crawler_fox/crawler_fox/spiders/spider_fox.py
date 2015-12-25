@@ -69,7 +69,7 @@ class spider_yahoo(scrapy.Spider):
         news_element = {}
         #news_element = CrawlerYahooItem()
         news_element['source'] = self.name
-        news_element['appear_time'] = str(time.time())
+        news_element['appeartime'] = str(time.time())
         news_element['link'] = response.url;
         
         # fetch news_title
