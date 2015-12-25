@@ -14,8 +14,8 @@ import time
 import sched
 import multiprocessing
 import json
-import db
 import time
+from db import *
 
 # Timer
 FIXED_TIME = 3600
@@ -33,20 +33,16 @@ Access-Control-Allow-Origin: *
 '''
 # crawler module
 crawler_name_list = ['crawler_yahoo', 'crawler_fox', 'crawler_theguardian']
-
+#crawler_name_list = ['crawler_yahoo']
 
 def doQuery(arg):
   backupStr = '''[{"name":"''' + unicode(arg) + '''..."}]'''
   print arg
   try:
-    backupStr = db.db_query(arg)
+    backupStr = db_query(arg)
   except:
     pass
   return backupStr
-
-
-
-
 
 class RequestHandler(pyjsonrpc.HttpRequestHandler):
   @pyjsonrpc.rpcmethod
@@ -126,10 +122,11 @@ def getPatternAnalyzerSentiment(text):
 def crawler_worker(crawler_name):
   print "Invoking " + crawler_name
   # other modules use out.txt only
-  os.system('cd ../crawler/crawler_yahoo; \
-             rm tmp.txt; \
-             scrapy crawl crawler_yahoo > tmp.txt; \
-             mv tmp.txt ../../daemon/%s_out.txt' % crawler_name)
+  os.system('cd ../crawler/%s; \
+             rm %s_tmp.txt; \
+             scrapy crawl %s > %s_tmp.txt; \
+             mv %s_tmp.txt ../../daemon/%s_out.txt' % \
+             (crawler_name, crawler_name, crawler_name, crawler_name, crawler_name, crawler_name))
   print crawler_name + "'s work done"
 
 def crawler():
@@ -154,6 +151,6 @@ def crawler():
   schedule.run()
 
 def crawler_main():
-  schedule.enter(FIXED_TIME, 0, crawler, ()) 
+  schedule.enter(1, 0, crawler, ()) 
   schedule.run()
 
