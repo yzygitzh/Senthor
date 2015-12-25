@@ -113,7 +113,10 @@ def db_update_article(entry):
 def db_handle_json(filename):
 	db = pymongo.MongoClient().newtest
 	print "[DEBUG]: ", filename
-	li = open(filename,"r").read().split("\n")
+	try:
+		li = open(filename,"r").read().split("\n")
+	except:
+		return
 
 	for line in li:
 		if (line == ""): break
