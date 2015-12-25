@@ -62,19 +62,19 @@
 					value = args.keyword.value
 					console.log("Catch value is "+value);
 					console.log("[ATTENTION]: Target is " + TARGET);
-			  	$.get(TARGET, {method:"demo", id:value}, function(data,status){
-			    	var decodeData = decodeURI(data);
-			    	console.log(decodeData);
-			    	a = JSON.parse(decodeData);
-			    	var demo = "Examples: </br>";
-			    	for (var i = 0; i < a.length; i++){
-			    		demo += JSON.stringify(a[i]) + "</br>";
-			    		console.log(a[i]);
-			    	}
-			    	document.getElementById("new").innerHTML = demo;
-			    	console.log("Return data is " + a[0]);
-			  	});
-			  	return false;
+				  	$.get(TARGET, {method:"demo", id:value}, function(data,status){
+				    	var decodeData = decodeURI(data);
+				    	console.log(decodeData);
+				    	a = JSON.parse(decodeData);
+				    	var demo = "Examples: </br>";
+				    	for (var i = 0; i < a.length; i++){
+				    		demo += JSON.stringify(a[i]) + "</br>";
+				    		console.log(a[i]);
+				    	}
+				    	document.getElementById("new").innerHTML = demo;
+				    	console.log("Return data is " + a[0]);
+				  	});
+				  	return false;
 				}
 				$('#id1').submit(function () {
 		 			keywordSearch(this);
