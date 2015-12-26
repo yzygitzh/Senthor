@@ -15,10 +15,16 @@ function keywordSearch(args){
     	var decodeData = decodeURI(data);
     	console.log(decodeData);
     	var a = JSON.parse(decodeData);
-    	var demo = "Examples: </br>";
+    	var demo = "<h5><small>Total:&nbsp" + a.length + "&nbsp news!</small></h5>";   	
+    	if (a.length < 1)
+    		demo = "Sorry, not found! :( </br> Try other keywords please! </br>"
     	for (var i = 0; i < a.length; i++){
-    		demo += JSON.stringify(a[i]) + "</br></br>";
-    		console.log(a[i]);				    		
+    		demo += "<h6>" + a[i]["title"] + "</h6>";
+    		demo += "<blockquote><p>" + a[i]["extract"] + "</p></br>";
+    		demo += "<small>appeartime: " + JSON.stringify(a[i]["appeartime"]) + "</br>";
+    		demo += "source: " + a[i]["source"] + "</br>";
+    		demo += "link: " + (a[i]["link"]) + "</small></blockquote></br></br>";
+    		console.log(a[i]);	    		
     	}
 
     	document.getElementById("new").innerHTML = demo;
