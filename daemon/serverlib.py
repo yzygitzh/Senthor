@@ -137,22 +137,24 @@ def crawler():
   db_filter_by_crawlertime()
   f = open("crawlerlog.txt","a")
   f.write("%s Crawler begin\n" % timestr())
-  try:
-    for crawler_name in crawler_name_list:
-      crawler_process_list.append(multiprocessing.Process(target=crawler_worker, args=(crawler_name,)))
-    # start crawlers
-    for crawler_process in crawler_process_list:
-      crawler_process.start()
-    # wait crawlers terminate
-    for crawler_process in crawler_process_list:
-      crawler_process.join(timeout = FIXED_TIME / 2)
-    
-    for crawler_name in crawler_name_list:
-      db_handle_json("%s_out.txt" % crawler_name)
-  except:
-    pass
+
+  for crawler_name in crawler_name_list:
+    crawler_process_list.append(multiprocessing.Process(target=crawler_worker, args=(crawler_name,)))
+
+  # start crawlers
+  for crawler_process in crawler_process_list:
+    crawler_process.start()
+
+  # wait crawlers terminate
+  for crawler_process in crawler_process_list:
+    crawler_process.join(timeout = FIXED_TIME / 2)
+  
+  for crawler_name in crawler_name_list:
+    db_handle_json("%s_out.txt" % crawler_name)
+
   f.write("%s Crawler end\n\n" % timestr())
   f.close()
+  
   # this timer should always be called    
   schedule.enter(FIXED_TIME, 0, crawler, ()) 
   schedule.run()
