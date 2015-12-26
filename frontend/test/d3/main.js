@@ -1,6 +1,6 @@
 // set up dimensions and margins
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-  width = 500 - margin.left - margin.right,
+  width = 600 - margin.left - margin.right,
   height = 300 - margin.top - margin.bottom,
   currentYear = 1980;
 
@@ -20,7 +20,7 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
   .scale(y)
   .orient("left")
-  .ticks(8);
+  .ticks(5);
 
 // create svg element
 var svg = d3.select("#chart").append("svg")

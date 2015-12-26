@@ -33,7 +33,7 @@
 			<div class="demo-title" align="center">
 	         	<h1>Senthor Analysis</h1>
 			</div>
-			<div align="center" class="demo-content">
+			<div align="center" class="container" style="width:75%">
 				</br>
 				<form id = "id1"> 
 					<input id = "id2" type="text" name="keyword" placeholder="Just type some keywords..." class="form-control"/>
@@ -44,62 +44,62 @@
 			</div>
 		</div>
 
-<!-- 		Here is the simple example code of chart -->
-		<div class="container">
-		</br>
-		</br>
-			<link rel="stylesheet" type="text/css" href="test/d3/main.css">
-			<div class="container">
-				<h4 align="center">Emotions chart</h4>
+		<div class="container" style="width: 80%; margin-left: 10%; margin-right: 10%; margin-bottom: 100px">
+			<div class="row">
+				<div class="container">
+					</br>
+					</br>
+					</br>
+					<h4>Click below tabs and see results</h4>
+					<ul class="nav nav-tabs" style="margin-left: 0%">
+					    <li class="active"><a data-toggle="tab" href="#home">News</a></li>
+					    <li><a data-toggle="tab" href="#menu1">Scatter Chart</a></li>
+					    <li><a data-toggle="tab" href="#menu2">Histogram</a></li>
+					    <!-- <li><a data-toggle="tab" href="#menu3">Line Chart</a></li> -->
+					</ul>
+
+					<div class="tab-content" style="margin-left: 0%">
+						<div id="home" class="tab-pane fade in active">
+							<h6 class="page-header">Current News!</h6>
+							<!-- Here is the simple example code and we have to change it later -->
+							<div class="container">
+								</br>
+								<p id = "new"></p>
+								<script type="text/javascript" src="js/search.js"></script>
+							</div>
+						</div>
+
+					    <div id="menu1" class="tab-pane fade">
+					        <!-- 		Here is the simple example code of chart -->
+							<div class="container">
+								<link rel="stylesheet" type="text/css" href="test/d3/main.css">
+								<div class="container">
+									<h5>Emotions chart</h5>
+								</div>
+								<div class="container" style="width: 50%; margin-left: 10px">
+									<p>
+										<input id="slider" type="range">
+									</p>
+								</div>
+								<div id="chart" style="width=100%; height=300px"></div>
+					  			<script type="text/javascript" src="test/d3/d3.min.js"></script>
+					  			<script type="text/javascript" src="test/d3/main.js"></script>
+							</div>
+					    </div>
+
+					    <div id="menu2" class="tab-pane fade">
+					      <h3>Histogram</h3>
+					      <p>Here will show a histogram of the news comments</p>
+					    </div>
+<!-- 					    <div id="menu3" class="tab-pane fade">
+					      <h3>Menu 3</h3>
+					      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+					    </div> -->
+					</div>
+				
+
 			</div>
-			<div class="container" align="center" style="width: 30%">
-				<p align="center">
-					<input id="slider" type="range">
-				</p>
-			</div>
-			<div id="chart" align="center" width="60%" height="300px"></div>
-  			<script type="text/javascript" src="test/d3/d3.min.js"></script>
-  			<script type="text/javascript" src="test/d3/main.js"></script>
 		</div>
-		<!-- Here is the simple example code and we have to change it later -->
-		<div class="container">
-			</br>
-			<p align = "center" id = "new"> Examples starts from here</p>
-			<script>
-				var data = '[{"link": "linkt2", "pole": [0.5, 0.5], "extract": "Cellphone google apple android...", "source": "crawler_yahoo", "title": "t2"}, {"link": "linkt3", "pole": [0.5, 0.5], "extract": "Cellphone microsoft windows phone ...", "source": "crawler_yahoo", "title": "t3"}]'
-				a = JSON.parse(data)
-				console.log(a[0]["link"])
-				LOCAL = "http://127.0.0.1:27015";
-				REMOTE = "http://104.236.131.71:27015"; 
-				TARGET = REMOTE;
 
-
-				function keywordSearch(args){
-					//alert(args.keyword.value);
-					value = args.keyword.value
-					console.log("Catch value is "+value);
-					console.log("[ATTENTION]: Target is " + TARGET);
-				  	$.get(TARGET, {method:"demo", id:value}, function(data,status){
-				    	var decodeData = decodeURI(data);
-				    	//console.log(decodeData);
-				    	a = JSON.parse(decodeData);
-				    	var demo = "Examples: </br>";
-				    	for (var i = 0; i < a.length; i++){
-				    		demo += JSON.stringify(a[i]) + "</br>";
-				    		//console.log(a[i]);
-				    	 	console.log(a[i]["pole"][0]);				    		
-				    	}
-
-				    	document.getElementById("new").innerHTML = demo;
-				    	//console.log("Return data is " + a[0]);
-				  	});
-				  	return false;
-				}
-				$('#id1').submit(function () {
-		 			keywordSearch(this);
-		 			return false;
-				});
-			</script>
-		</div>
 	</body>
 </html>
