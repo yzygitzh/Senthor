@@ -1,7 +1,7 @@
 // set up dimensions and margins
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-  width = 960 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom,
+  width = 600 - margin.left - margin.right,
+  height = 300 - margin.top - margin.bottom,
   currentYear = 1980;
 
 // scales
@@ -20,7 +20,7 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
   .scale(y)
   .orient("left")
-  .ticks(8);
+  .ticks(5);
 
 // create svg element
 var svg = d3.select("#chart").append("svg")
@@ -40,7 +40,7 @@ svg.append("g")
   .attr("dx", width)
   .attr("dy", "-.3em")
   .style("text-anchor", "end")
-  .text("Fertility");
+  .text("subjective / objective");
 
 svg.append("g")
   .attr("class", "y axis")
@@ -50,7 +50,7 @@ svg.append("g")
   .attr("y", 6)
   .attr("dy", ".7em")
   .style("text-anchor", "end")
-  .text("Life Expectancy");
+  .text("positive / negative");
 
 var yearLabel = svg.append("text")
   .attr("class", "big-year")
@@ -64,7 +64,7 @@ var countryLabel = svg.append("text")
   .style({opacity: 0});
 
 // load data
-d3.csv("countries.csv", function(d) {
+d3.csv("test/d3/countries.csv", function(d) {
   d.fertility = +d.fertility;
   d.life_expect = +d.life_expect;
   return d;
@@ -126,7 +126,6 @@ d3.csv("countries.csv", function(d) {
   y.domain(d3.extent(data, function(d) { return d.life_expect; }));
 
   var timeRange = d3.extent(data, function(d) { return d.year; });
-
   slider.attr("min", timeRange[0]);
   slider.attr("max", timeRange[1]);
   slider.attr("step", 5);

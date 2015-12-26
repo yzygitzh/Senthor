@@ -122,10 +122,11 @@ def getPatternAnalyzerSentiment(text):
 def crawler_worker(crawler_name):
   print "Invoking " + crawler_name
   # other modules use out.txt only
-  os.system('cd ../crawler/crawler_yahoo; \
-             rm tmp.txt; \
-             scrapy crawl crawler_yahoo > tmp.txt; \
-             mv tmp.txt ../../daemon/%s_out.txt' % crawler_name)
+  os.system('cd ../crawler/%s; \
+             rm %s_tmp.txt; \
+             scrapy crawl %s > %s_tmp.txt; \
+             mv %s_tmp.txt ../../daemon/%s_out.txt' % \
+             (crawler_name, crawler_name, crawler_name, crawler_name, crawler_name, crawler_name))
   print crawler_name + "'s work done"
 
 def timestr():  

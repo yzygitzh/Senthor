@@ -4,12 +4,14 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Senthor Analysis </title>
+		<link rel="stylesheet" type="text/css" href="test/d3/main.css">
 		<!-- Loading Bootstrap -->
     	<link href="css/css/bootstrap.min.css" rel="stylesheet">
     	<!-- Loading Flat UI -->
    		<link href="css/css/flat-ui.min.css" rel="stylesheet">
 		<script src="js/jquery.min.js"></script>
 		<script src="js/flat-ui.min.js"></script>
+		<script src="js/d3.min.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-default" role="navigation">
@@ -30,57 +32,71 @@
 		</nav>
 
 		<div class="container">
-			<div class="demo-title" align="center">
+			<div class="jumbotron" align="center">
 	         	<h1>Senthor Analysis</h1>
+				<div align="center" class="container" style="width:75%">
+					</br>
+					<form id = "id1"> 
+						<input id = "id2" type="text" name="keyword" placeholder="Just type some keywords..." class="form-control" required/>
+						</br>
+						<button type="submit" class="btn btn-hg btn-primary">Submit!</button>
+						</br>
+					</form>
+				</div>	         	
 			</div>
-			<div align="center" class="demo-content">
-				</br>
-				<form id = "id1"> 
-					<input id = "id2" type="text" name="keyword" placeholder="Just type some keywords..." class="form-control"/>
-					</br>
-					<button type="submit" class="btn btn-hg btn-primary">Submit!</button>
-					</br>
-				</form>
+
+		</div>
+
+		<div class="container" style="margin-bottom: 100px">
+			<div class="row">
+				<div class="container">
+					<h5><small>Click below tabs and see results</small></h5>
+					<ul class="nav nav-tabs">
+					    <li class="active"><a data-toggle="tab" href="#home">News</a></li>
+					    <li><a data-toggle="tab" href="#menu1">Scatter Chart</a></li>
+					    <li><a data-toggle="tab" href="#menu2">Histogram</a></li>
+					    <!-- <li><a data-toggle="tab" href="#menu3">Line Chart</a></li> -->
+					</ul>
+
+					<div class="tab-content">
+						<div id="home" class="tab-pane fade in active">
+							<h5 class="page-header">Current News!</h5>
+							<!-- Here is the simple example code and we have to change it later -->
+							<div class="container">
+								<p id = "new"></p>
+								<script type="text/javascript" src="js/search.js"></script>
+							</div>
+						</div>
+
+					    <div id="menu1" class="tab-pane fade">
+					        <!-- 		Here is the simple example code of chart -->
+							<div class="container">
+								<h6 class="page-header">Emotions Overview </br>
+								<small>Drag the Slider and find out funny things</small></h6>
+
+								<div class="container" style="width: 50%; margin-left: 10px">
+									<p>
+										<input id="slider" type="range">
+									</p>
+								</div>
+								<div id="chart" style="width=100%; height=300px"></div>
+					  			<script type="text/javascript" src="test/d3/main.js"></script>
+							</div>
+					    </div>
+
+					    <div id="menu2" class="tab-pane fade">
+					      <h3>Histogram</h3>
+					      <p>Here will show a histogram of the news comments</p>
+					    </div>
+<!-- 					    <div id="menu3" class="tab-pane fade">
+					      <h3>Menu 3</h3>
+					      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+					    </div> -->
+					</div>
+				
+
 			</div>
 		</div>
 
-		<!-- Here is the simple example code and we have to change it later -->
-		<div class="container">
-			</br>
-			<p align = "center" id = "new"> Examples starts from here</p>
-			<script>
-				var data = '[{"link": "linkt2", "pole": [0.5, 0.5], "extract": "Cellphone google apple android...", "source": "crawler_yahoo", "title": "t2"}, {"link": "linkt3", "pole": [0.5, 0.5], "extract": "Cellphone microsoft windows phone ...", "source": "crawler_yahoo", "title": "t3"}]'
-				a = JSON.parse(data)
-				console.log(a[0]["link"])
-				LOCAL = "http://127.0.0.1:27015";
-				REMOTE = "http://104.236.131.71:27015"; 
-				TARGET = REMOTE;
-
-
-				function keywordSearch(args){
-					//alert(args.keyword.value);
-					value = args.keyword.value
-					console.log("Catch value is "+value);
-					console.log("[ATTENTION]: Target is " + TARGET);
-			  	$.get(TARGET, {method:"demo", id:value}, function(data,status){
-			    	var decodeData = decodeURI(data);
-			    	console.log(decodeData);
-			    	a = JSON.parse(decodeData);
-			    	var demo = "Examples: </br>";
-			    	for (var i = 0; i < a.length; i++){
-			    		demo += JSON.stringify(a[i]) + "</br>";
-			    		console.log(a[i]);
-			    	}
-			    	document.getElementById("new").innerHTML = demo;
-			    	console.log("Return data is " + a[0]);
-			  	});
-			  	return false;
-				}
-				$('#id1').submit(function () {
-		 			keywordSearch(this);
-		 			return false;
-				});
-			</script>
-		</div>
 	</body>
 </html>
