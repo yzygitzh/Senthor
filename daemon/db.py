@@ -58,7 +58,7 @@ def sentiment_cal(List):
 		return 0.0
 	for text in List:
 		result += TextBlob(text).sentiment.polarity
-		print text, TextBlob(text).sentiment.polarity
+		#print text, TextBlob(text).sentiment.polarity
 
 	result /= len(List)
 	return result
@@ -112,7 +112,7 @@ def db_update_article(entry):
 # and write the output JSONs into output file
 def db_handle_json(filename):
 	db = pymongo.MongoClient().newtest
-	print "[DEBUG]: ", filename
+	#print "[DEBUG]: ", filename
 	try:
 		li = open(filename,"r").read().split("\n")
 	except:
@@ -120,7 +120,7 @@ def db_handle_json(filename):
 
 	for line in li:
 		if (line == ""): break
-		print line
+		#print line
 		entry = json.loads(line)
 		title = entry["title"]
 		Oid, cnt = db_query_title_count(title)
@@ -133,13 +133,15 @@ def db_handle_json(filename):
 # Return a string of a list of JSON as the query's result
 def db_query(keys):
 	db = pymongo.MongoClient().newtest
-	print "Search begin..."
+	f = open("dbquerylog.txt","a")
+	f.write("Search begin...\n")
 	if (keys == ""): return
 	keys = keys.split("+")
 	sstr = ""
 	for thekey in keys:
 		sstr += '''\"'''+thekey+'''\"'''
 	records = db.atest.find({"$text":{"$search":sstr}})
+	f.write(str(len(records))+"\n")
 	full_list = []
 	for record in records:
 		recordDict = {}
@@ -153,8 +155,9 @@ def db_query(keys):
 		recordJson = json.JSONEncoder().encode(recordDict)
 		full_list.append(recordDict)
 	result = json.dumps(full_list)
-	print result
-	print "Search done..."
+	#print result
+	f.write("Search done...\n")
+	f.close()
 	return result
 
 
@@ -167,7 +170,7 @@ def db_filter_by_crawlertime():
 
 	for record in db.atest.find({"crawltime": {"$lt": 24}}):
 		source = record["source"]
-		print source
+		#print source
 		if (source.find("yahoo") != -1):
 			cyahoo.write(record["link"]+"\n")
 		elif (source.find("gaurd") != -1):

@@ -74,7 +74,7 @@ def handle_get(text):
   )
   response = http_client.call('query',keyword)   
   content += response
-  print content 
+  #print content 
   return content 
 
 
@@ -90,7 +90,7 @@ def middleware_main():
     request = conn.recv(1024)
     method = request.split(' ')[0]
     try:
-      print "Request is ", request, " #"
+      print "Request is ", request, " ."
       src = request.split(' ')[1]
 
       # deal with GET method
@@ -103,7 +103,7 @@ def middleware_main():
     #print 'Request is:', request
     # close connection
     conn.close()
-    print "Success Close"
+    print "Close successfully"
   s.shutdown()
   s.close()
 
@@ -128,24 +128,32 @@ def crawler_worker(crawler_name):
              mv tmp.txt ../../daemon/%s_out.txt' % crawler_name)
   print crawler_name + "'s work done"
 
+def timestr():  
+  return time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+
 def crawler():
   crawler_process_list = []
-  
-  # get in.txt's ready
+    # get in.txt's ready
   db_filter_by_crawlertime()
-
-  for crawler_name in crawler_name_list:
-    crawler_process_list.append(multiprocessing.Process(target=crawler_worker,args=(crawler_name,)))
-  # start crawlers
-  for crawler_process in crawler_process_list:
-    crawler_process.start()
-  # wait crawlers terminate
-  for crawler_process in crawler_process_list:
-    crawler_process.join(timeout = FIXED_TIME / 2)
-  
-  for crawler_name in crawler_name_list:
-    db_handle_json("%s_out.txt" % crawler_name)
-
+  f = open("crawlerlog.txt","a")
+  f.write("%s Crawler begin\n" % timestr())
+  try:
+    for crawler_name in crawler_name_list:
+      crawler_process_list.append(multiprocessing.Process(target=crawler_worker, args=(crawler_name,)))
+    # start crawlers
+    for crawler_process in crawler_process_list:
+      crawler_process.start()
+    # wait crawlers terminate
+    for crawler_process in crawler_process_list:
+      crawler_process.join(timeout = FIXED_TIME / 2)
+    
+    for crawler_name in crawler_name_list:
+      db_handle_json("%s_out.txt" % crawler_name)
+  except:
+    pass
+  f.write("%s Crawler end\n\n" % timestr())
+  f.close()
+  # this timer should always be called    
   schedule.enter(FIXED_TIME, 0, crawler, ()) 
   schedule.run()
 
