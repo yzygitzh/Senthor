@@ -44,6 +44,23 @@
 			</div>
 		</div>
 
+<!-- 		Here is the simple example code of chart -->
+		<div class="container">
+		</br>
+		</br>
+			<link rel="stylesheet" type="text/css" href="test/d3/main.css">
+			<div class="container">
+				<h4 align="center">Emotions chart</h4>
+			</div>
+			<div class="container" align="center" style="width: 30%">
+				<p align="center">
+					<input id="slider" type="range">
+				</p>
+			</div>
+			<div id="chart" align="center" width="60%" height="300px"></div>
+  			<script type="text/javascript" src="test/d3/d3.min.js"></script>
+  			<script type="text/javascript" src="test/d3/main.js"></script>
+		</div>
 		<!-- Here is the simple example code and we have to change it later -->
 		<div class="container">
 			</br>
@@ -64,15 +81,17 @@
 					console.log("[ATTENTION]: Target is " + TARGET);
 				  	$.get(TARGET, {method:"demo", id:value}, function(data,status){
 				    	var decodeData = decodeURI(data);
-				    	console.log(decodeData);
+				    	//console.log(decodeData);
 				    	a = JSON.parse(decodeData);
 				    	var demo = "Examples: </br>";
 				    	for (var i = 0; i < a.length; i++){
 				    		demo += JSON.stringify(a[i]) + "</br>";
-				    		console.log(a[i]);
+				    		//console.log(a[i]);
+				    	 	console.log(a[i]["pole"][0]);				    		
 				    	}
+
 				    	document.getElementById("new").innerHTML = demo;
-				    	console.log("Return data is " + a[0]);
+				    	//console.log("Return data is " + a[0]);
 				  	});
 				  	return false;
 				}
