@@ -76,7 +76,7 @@ def db_insert_article(entry):
 	db = pymongo.MongoClient().newtest
 	entry["crawltime"] = 1
 	entry["pole"] = [sentiment_cal(entry["comments"])]
-	entry["extract"] = entry["article"][:255]
+	entry["extract"] = entry["article"][:1024]
 	entry["extract"] += "..."
 	result = db.atest.insert_one(entry).inserted_id
 
