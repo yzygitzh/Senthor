@@ -10,6 +10,7 @@ import time
 import pymongo
 import json
 from textblob import TextBlob
+from serverlib import LOG
 
 
 # Start the MongoDB daemon in the background
@@ -133,15 +134,18 @@ def db_handle_json(filename):
 # Return a string of a list of JSON as the query's result
 def db_query(keys):
 	db = pymongo.MongoClient().newtest
-	f = open("dbquerylog.txt","a")
-	f.write("Search begin...\n")
+	LOG("dblog.log","Search %s begin" % keys)
+
+
 	if (keys == ""): return
 	keys = keys.split("+")
 	sstr = ""
 	for thekey in keys:
 		sstr += '''\"'''+thekey+'''\"'''
+
+	LOG("dblog.log", sstr)
 	records = db.atest.find({"$text":{"$search":sstr}})
-	f.write(str(len(records))+"\n")
+	LOG("dblog.log", str(len(records)))
 	full_list = []
 	for record in records:
 		recordDict = {}
@@ -156,8 +160,10 @@ def db_query(keys):
 		full_list.append(recordDict)
 	result = json.dumps(full_list)
 	#print result
-	f.write("Search done...\n")
-	f.close()
+	LOG("dblog.log", result)
+	LOG("dblog.log", "Search ends")
+
+
 	return result
 
 

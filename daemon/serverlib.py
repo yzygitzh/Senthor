@@ -166,6 +166,6 @@ def crawler():
   LOG("crawlerlog.log", "Set up new timer successfully")
 
 def crawler_main():
-  schedule.enter(1, 0, crawler, ()) 
+  schedule.enter(300, 0, crawler, ()) 
   schedule.run()
 
