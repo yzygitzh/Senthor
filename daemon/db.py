@@ -136,7 +136,9 @@ def db_handle_json(filename):
 # Query the MongoDB with a batch of keywords
 # Return a string of a list of JSON as the query's result
 def db_query(keys):
+	LOG("dblog.log", "Enter db_query func()")
 	db = pymongo.MongoClient().newtest
+	LOG("dblog.log", "Get the db handler")
 	LOG("dblog.log","Search %s begin" % keys)
 
 
