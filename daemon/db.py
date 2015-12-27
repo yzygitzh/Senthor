@@ -12,6 +12,14 @@ import json
 from textblob import TextBlob
 
 
+def timestr():  
+  return time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+
+def LOG(File, message):
+  f = open(File, "a")
+  f.write("%s %s\n" % (timestr(), message))
+  f.close()
+
 # Start the MongoDB daemon in the background
 # You should not use this function in your code
 
@@ -58,7 +66,7 @@ def sentiment_cal(List):
 		return 0.0
 	for text in List:
 		result += TextBlob(text).sentiment.polarity
-		print text, TextBlob(text).sentiment.polarity
+		#print text, TextBlob(text).sentiment.polarity
 
 	result /= len(List)
 	return result
@@ -68,7 +76,7 @@ def db_insert_article(entry):
 	db = pymongo.MongoClient().newtest
 	entry["crawltime"] = 1
 	entry["pole"] = [sentiment_cal(entry["comments"])]
-	entry["extract"] = entry["article"][:255]
+	entry["extract"] = entry["article"][:1024]
 	entry["extract"] += "..."
 	result = db.atest.insert_one(entry).inserted_id
 
@@ -91,17 +99,6 @@ def db_update_article(entry):
 		tmppos = sentiment_cal(filter_comment)*1.0
 		newpos = (l1 * dbentry['pole'][-1] + l2 * tmppos) / (l1 + l2)
 
-	'''
-	if (filter_comment == []):
-		if (dbentry["pole"] == []):
-			newpos = 0.0
-		else:
-			newpos = dbentry["pole"][-1]
-	else:
-		tmp = sentiment_cal(filter_comment)
-		newpos = 
-	'''
-
 	dbentry["pole"].append(newpos)
 	dbentry["crawltime"] += 1
 	dbentry["comments"] = cmt_list + filter_comment
@@ -112,7 +109,7 @@ def db_update_article(entry):
 # and write the output JSONs into output file
 def db_handle_json(filename):
 	db = pymongo.MongoClient().newtest
-	print "[DEBUG]: ", filename
+	#print "[DEBUG]: ", filename
 	try:
 		li = open(filename,"r").read().split("\n")
 	except:
@@ -120,7 +117,7 @@ def db_handle_json(filename):
 
 	for line in li:
 		if (line == ""): break
-		print line
+		#print line
 		entry = json.loads(line)
 		title = entry["title"]
 		Oid, cnt = db_query_title_count(title)
@@ -132,13 +129,20 @@ def db_handle_json(filename):
 # Query the MongoDB with a batch of keywords
 # Return a string of a list of JSON as the query's result
 def db_query(keys):
+	print "Entering..."
+	LOG("dblog.log", "Enter db_query func()")
 	db = pymongo.MongoClient().newtest
-	print "Search begin..."
+	LOG("dblog.log", "Get the db handler")
+	LOG("dblog.log","Search %s begin" % keys)
+
+
 	if (keys == ""): return
 	keys = keys.split("+")
 	sstr = ""
 	for thekey in keys:
 		sstr += '''\"'''+thekey+'''\"'''
+
+	LOG("dblog.log", sstr)
 	records = db.atest.find({"$text":{"$search":sstr}})
 	full_list = []
 	for record in records:
@@ -153,8 +157,11 @@ def db_query(keys):
 		recordJson = json.JSONEncoder().encode(recordDict)
 		full_list.append(recordDict)
 	result = json.dumps(full_list)
-	print result
-	print "Search done..."
+	#print result
+	LOG("dblog.log", result)
+	LOG("dblog.log", "Search ends")
+
+
 	return result
 
 
@@ -167,7 +174,7 @@ def db_filter_by_crawlertime():
 
 	for record in db.atest.find({"crawltime": {"$lt": 24}}):
 		source = record["source"]
-		print source
+		#print source
 		if (source.find("yahoo") != -1):
 			cyahoo.write(record["link"]+"\n")
 		elif (source.find("gaurd") != -1):

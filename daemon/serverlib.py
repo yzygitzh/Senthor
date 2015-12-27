@@ -35,12 +35,21 @@ Access-Control-Allow-Origin: *
 crawler_name_list = ['crawler_yahoo', 'crawler_fox', 'crawler_theguardian']
 #crawler_name_list = ['crawler_yahoo']
 
+def timestr():  
+  return time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+
+def LOG(File, message):
+  f = open(File, "a")
+  f.write("%s %s\n" % (timestr(), message))
+  f.close()
+
 def doQuery(arg):
   backupStr = '''[{"name":"''' + unicode(arg) + '''..."}]'''
-  print arg
+  LOG("querylog.log", arg)
   try:
     backupStr = db_query(arg)
   except:
+    LOG("querylog.log", "Encounter exception...")
     pass
   return backupStr
 
@@ -56,9 +65,9 @@ def daemon_server():
       server_address = ('127.0.0.1', 8888),
       RequestHandlerClass = RequestHandler
   )
-  print "Starting HTTP server ..."
-  print "URL: http://127.0.0.1:8888"
-  print os.getpid()
+  LOG("querylog.log", "Starting HTTP server ...")
+  LOG("querylog.log", "URL: http://127.0.0.1:8888")
+  LOG("querylog.log", str(os.getpid()))
   http_server.serve_forever()
 
 
@@ -67,22 +76,23 @@ def handle_get(text):
   #print text
   req = text.split('&')
   keyword = urllib.unquote(req[1].split('=')[1]).decode('utf8')
-  print "Keyword: " + keyword
+  LOG("querylog.log", "Keyword: " + keyword)
   content = REP_GET
   http_client = pyjsonrpc.HttpClient(
       url = "http://127.0.0.1:8888"
   )
   response = http_client.call('query',keyword)   
   content += response
-  print content 
+  LOG("querylog.log", content)
   return content 
 
 
 def middleware_main():
   # Configure socket
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
   s.bind((HOST, PORT))
-  print "http://localhost:27015 listening"
+  LOG("querylog.log", "http://localhost:27015 listening")
   # infinite loop, server forever
   while True:
     s.listen(100)
@@ -90,7 +100,7 @@ def middleware_main():
     request = conn.recv(1024)
     method = request.split(' ')[0]
     try:
-      print "Request is ", request, " #"
+      LOG("querylog.log", "Request is " + request + " .")
       src = request.split(' ')[1]
 
       # deal with GET method
@@ -103,7 +113,7 @@ def middleware_main():
     #print 'Request is:', request
     # close connection
     conn.close()
-    print "Success Close"
+    LOG("querylog.log","Close successfully")
   s.shutdown()
   s.close()
 
@@ -120,37 +130,44 @@ def getPatternAnalyzerSentiment(text):
   return result
 
 def crawler_worker(crawler_name):
-  print "Invoking " + crawler_name
+  LOG("crawlerlog.log","Invoking " + crawler_name)
   # other modules use out.txt only
   os.system('cd ../crawler/%s; \
              rm %s_tmp.txt; \
              scrapy crawl %s > %s_tmp.txt; \
              mv %s_tmp.txt ../../daemon/%s_out.txt' % \
              (crawler_name, crawler_name, crawler_name, crawler_name, crawler_name, crawler_name))
-  print crawler_name + "'s work done"
+  LOG("crawlerlog.log", crawler_name + "'s work done") 
+
 
 def crawler():
   crawler_process_list = []
-  
-  # get in.txt's ready
+    # get in.txt's ready
   db_filter_by_crawlertime()
 
+  LOG("crawlerlog.log","Crawlers begin")
+
   for crawler_name in crawler_name_list:
-    crawler_process_list.append(multiprocessing.Process(target=crawler_worker,args=(crawler_name,)))
+    crawler_process_list.append(multiprocessing.Process(target=crawler_worker, args=(crawler_name,)))
+
   # start crawlers
   for crawler_process in crawler_process_list:
     crawler_process.start()
+
   # wait crawlers terminate
   for crawler_process in crawler_process_list:
     crawler_process.join(timeout = FIXED_TIME / 2)
   
   for crawler_name in crawler_name_list:
     db_handle_json("%s_out.txt" % crawler_name)
-
+  LOG("crawlerlog.log", "Crawlers end")
+  
+  # this timer should always be called    
   schedule.enter(FIXED_TIME, 0, crawler, ()) 
   schedule.run()
+  LOG("crawlerlog.log", "Set up new timer successfully")
 
 def crawler_main():
-  schedule.enter(1, 0, crawler, ()) 
+  schedule.enter(300, 0, crawler, ()) 
   schedule.run()
 
