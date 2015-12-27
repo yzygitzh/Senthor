@@ -89,6 +89,7 @@ def handle_get(text):
 def middleware_main():
   # Configure socket
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
   s.bind((HOST, PORT))
   LOG("querylog.log", "http://localhost:27015 listening")
   # infinite loop, server forever
