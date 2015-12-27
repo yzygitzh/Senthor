@@ -14,7 +14,7 @@
 		<script src="js/d3.min.js"></script>
 	</head>
 	<body>
-		<nav class="navbar navbar-default" role="navigation">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
       			<span class="sr-only">Toggle navigation</span>
@@ -31,7 +31,7 @@
 			</div><!-- /.navbar-collapse -->
 		</nav>
 
-		<div class="container">
+		<div class="container" style="margin-top: 80px">
 			<div class="jumbotron" align="center">
 	         	<h1>Senthor Analysis</h1>
 				<div align="center" class="container" style="width:75%">
@@ -39,7 +39,7 @@
 					<form id = "id1"> 
 						<input id = "id2" type="text" name="keyword" placeholder="Just type some keywords..." class="form-control" required/>
 						</br>
-						<button type="submit" class="btn btn-hg btn-primary">Submit!</button>
+						<button type="submit" class="btn btn-hg btn-primary" onclick="formSubmit()">Submit!</button>
 						</br>
 					</form>
 				</div>	         	
@@ -60,7 +60,7 @@
 
 					<div class="tab-content">
 						<div id="home" class="tab-pane fade in active">
-							<h5 class="page-header">Current News!</h5>
+							<h5 class="page-header">Current News</h5>
 							<!-- Here is the simple example code and we have to change it later -->
 							<div class="container">
 								<p id = "new"></p>
@@ -87,6 +87,11 @@
 					    <div id="menu2" class="tab-pane fade">
 					      <h3>Histogram</h3>
 					      <p>Here will show a histogram of the news comments</p>
+					      <div class="container">
+					      	<p id = "hist"></p>
+					      	<script type="text/javascript" src="js/scatter.js"></script>					      	
+					      </div>
+
 					    </div>
 <!-- 					    <div id="menu3" class="tab-pane fade">
 					      <h3>Menu 3</h3>
