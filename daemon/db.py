@@ -99,17 +99,6 @@ def db_update_article(entry):
 		tmppos = sentiment_cal(filter_comment)*1.0
 		newpos = (l1 * dbentry['pole'][-1] + l2 * tmppos) / (l1 + l2)
 
-	'''
-	if (filter_comment == []):
-		if (dbentry["pole"] == []):
-			newpos = 0.0
-		else:
-			newpos = dbentry["pole"][-1]
-	else:
-		tmp = sentiment_cal(filter_comment)
-		newpos = 
-	'''
-
 	dbentry["pole"].append(newpos)
 	dbentry["crawltime"] += 1
 	dbentry["comments"] = cmt_list + filter_comment
