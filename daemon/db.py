@@ -10,8 +10,11 @@ import time
 import pymongo
 import json
 from textblob import TextBlob
-from serverlib import LOG
 
+def LOG(File, message):
+  f = open(File, "a")
+  f.write("%s %s\n" % (timestr(), message))
+  f.close()
 
 # Start the MongoDB daemon in the background
 # You should not use this function in your code
