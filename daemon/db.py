@@ -11,6 +11,10 @@ import pymongo
 import json
 from textblob import TextBlob
 
+
+def timestr():  
+  return time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+
 def LOG(File, message):
   f = open(File, "a")
   f.write("%s %s\n" % (timestr(), message))
@@ -136,6 +140,7 @@ def db_handle_json(filename):
 # Query the MongoDB with a batch of keywords
 # Return a string of a list of JSON as the query's result
 def db_query(keys):
+	print "Entering..."
 	LOG("dblog.log", "Enter db_query func()")
 	db = pymongo.MongoClient().newtest
 	LOG("dblog.log", "Get the db handler")
