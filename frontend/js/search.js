@@ -35,8 +35,8 @@ function formSubmit() {
 	    	var decodeData = decodeURI(data);
 	    	console.log(decodeData);
 	    	a = JSON.parse(decodeData);
-	    	NewsComment(a);
-	    	ScatterPlot(a);	
+	    	NewsComment(a);	// present news in "news" tab
+	    	ScatterPlot(a);	// present scatter char in "scatter" tab
     	});
 
 		return false;
