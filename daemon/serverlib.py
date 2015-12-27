@@ -46,11 +46,8 @@ def LOG(File, message):
 def doQuery(arg):
   backupStr = '''[{"name":"''' + unicode(arg) + '''..."}]'''
   LOG("querylog.log", arg)
-  try:
-    backupStr = db_query(arg)
-  except:
-    LOG("querylog.log", "Encounter exception...")
-    pass
+  backupStr = db_query(arg)
+  LOG("querylog.log", "Encounter exception...")
   return backupStr
 
 class RequestHandler(pyjsonrpc.HttpRequestHandler):
