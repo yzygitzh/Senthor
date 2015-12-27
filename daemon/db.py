@@ -155,7 +155,6 @@ def db_query(keys):
 
 	LOG("dblog.log", sstr)
 	records = db.atest.find({"$text":{"$search":sstr}})
-	LOG("dblog.log", str(len(records)))
 	full_list = []
 	for record in records:
 		recordDict = {}
