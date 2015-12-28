@@ -169,7 +169,7 @@ def db_query(keys):
 def db_filter_by_crawlertime():
 	db = pymongo.MongoClient().newtest
 	cfox = open("../crawler/crawler_fox/in.txt","w")
-	cgaurd = open("../crawler/crawler_theguardian/in.txt","w")
+	cguard = open("../crawler/crawler_theguardian/in.txt","w")
 	cyahoo = open("../crawler/crawler_yahoo/in.txt","w")
 
 	for record in db.atest.find({"crawltime": {"$lt": 24}}):
@@ -177,14 +177,14 @@ def db_filter_by_crawlertime():
 		#print source
 		if (source.find("yahoo") != -1):
 			cyahoo.write(record["link"]+"\n")
-		elif (source.find("gaurd") != -1):
-			cgaurd.write(record["link"]+"\n")
+		elif (source.find("guard") != -1):
+			cguard.write(record["link"]+"\n")
 		elif (source.find("fox") != -1):
 			cfox.write(record["link"]+"\n")
 		else:
 			pass
 	cfox.close()
-	cgaurd.close()
+	cguard.close()
 	cyahoo.close()
 
 def db_test():
