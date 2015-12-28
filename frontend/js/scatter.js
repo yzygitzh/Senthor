@@ -1,5 +1,5 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 700 - margin.left - margin.right,
+    width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 /* 
@@ -11,15 +11,16 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 
 // setup x 
 var xValue = function(d) { return d.appeartime;}, // data -> value
-    xScale = d3.scale.linear().range([0, width]), // value -> display
+    // xScale = d3.scale.linear().range([0, width]), // value -> display
+    xScale = d3.time.scale().range([0, width]),
     xMap = function(d) { return xScale(xValue(d));}, // data -> display
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(10);;
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5).tickFormat(d3.time.format("%x %H:%M"));
 
 // setup y
 var yValue = function(d) { return d.pole;}, // data -> value
     yScale = d3.scale.linear().range([height, 0]), // value -> display
     yMap = function(d) { return yScale(yValue(d));}, // data -> display
-    yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);;
+    yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
 
 // setup fill color
 var cValue = function(d) { return d["source"];},
@@ -69,14 +70,14 @@ function ScatterPlot(a) {
 		var myDate=a[i]["appeartime"];
 		var newDate=myDate[0]+"/"+myDate[1]+"/"+myDate[2]+" "+myDate[3]+":"+myDate[4]+":"+myDate[5];
 		newDate = new Date(newDate).getTime();
-		var curTime = newDate / 3600;
+		var curTime = newDate;
 		for (var j = 0; j < a[i]["pole"].length; j++) {
 			var tmp_data = {};
 			tmp_data["appeartime"] = +curTime;
 			tmp_data["source"] = a[i]["source"];
 			tmp_data["pole"] = +a[i]["pole"][j];
 			data.push(tmp_data);
-			curTime += 1;
+			curTime += 3600;
 		}
 	}
 	console.log(data);
