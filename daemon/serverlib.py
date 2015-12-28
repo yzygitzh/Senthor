@@ -90,14 +90,15 @@ def handle_get(text):
 def middleware_main():
   # Configure socket
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+  #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
   s.bind((HOST, PORT))
+  s.listen(10)
   LOG("querylog.log", "http://localhost:27015 listening")
   # infinite loop, server forever
   while True:
-    s.listen(100)
     conn, addr = s.accept()
     request = conn.recv(1024)
+    LOG("querylog.log", str(addr))
     method = request.split(' ')[0]
     try:
       LOG("querylog.log", "Request is " + request + " .")
