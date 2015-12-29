@@ -1,4 +1,4 @@
-var margin = {top: 20, right: 40, bottom: 150, left: 80},
+var margin = {top: 20, right: 40, bottom: 150, left: 55},
     width = 700 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -77,7 +77,7 @@ function ScatterPlot(a) {
 			tmp_data["source"] = a[i]["source"];
 			tmp_data["pole"] = +a[i]["pole"][j];
 			data.push(tmp_data);
-			curTime += 3600;
+			curTime += 3600000;
 		}
 	}
 	console.log(data);
@@ -124,7 +124,6 @@ function ScatterPlot(a) {
       .style("text-anchor", "end")
       .text("Time");
 
-
 	// y-axis
 	svgScatter.append("g")
 	  .attr("class", "y axis")
@@ -142,16 +141,16 @@ function ScatterPlot(a) {
 	  .data(data)
 	  .enter().append("circle")
 	  .attr("class", "dot")
-	  .attr("r", 7)
+	  .attr("r", 5)
 	  .attr("cx", xMap)
 	  .attr("cy", yMap)
 	  .style("fill", function(d) { return color(cValue(d));}) 
-	  .style("opacity", 0.7)
+	  .style("opacity", 0.8)
 	  .on("mouseover", function(d) {
 	      tooltip.transition()
 	           .duration(200)
 	           .style("opacity", .9);
-	      tooltip.html(d["source"] + "<br/> (" + Date(xValue(d))
+	      tooltip.html(d["source"] + "<br/> (" + (new Date(xValue(d)))
 	        + ", " + yValue(d) + ")")
 	           .style("left", (d3.event.pageX + 5) + "px")
 	           .style("top", (d3.event.pageY - 28) + "px");
@@ -174,7 +173,8 @@ function ScatterPlot(a) {
 	  .attr("x", width - 18)
 	  .attr("width", 18)
 	  .attr("height", 18)
-	  .style("fill", color);
+	  .style("fill", color)
+	  .style("opacity", 0.8);
 
 	// draw legend text
 	legend.append("text")
