@@ -15,7 +15,9 @@ import sched
 import multiprocessing
 import json
 import time
+from copy import deepcopy
 from db import *
+import thread
 
 # Address
 HOST = ''
@@ -78,23 +80,21 @@ def handle_get(text):
   LOG("querylog.log", content)
   return content 
 
-def request_worker(conn, request):
+def worker_thread(conn, request):
+  request = conn.recv(1024)
+  LOG("querylog.log", request)
   method = request.split(' ')[0]
   try:
     LOG("querylog.log", "Request is " + request + " .")
     src = request.split(' ')[1]
-
-    # deal with GET method
+    # Here we only deal with GET method
     if method == 'GET':
       conn.sendall(handle_get(src[2:]))
   except:
     conn.close()
-
-  #print 'Connected by', addr
-  #print 'Request is:', request
-  # close connection
   conn.close()
   LOG("querylog.log","Close successfully")
+
 
 def middleware_main():
   # Configure socket
@@ -103,12 +103,16 @@ def middleware_main():
   s.bind((HOST, PORT))
   s.listen(10)
   LOG("querylog.log", "http://localhost:27015 listening")
+  pool = multiprocessing.Pool(processes = 10)
   # infinite loop, server forever
   while True:
     conn, addr = s.accept()
-    request = conn.recv(1024)
-    LOG("querylog.log", str(addr))
-    p1 = multiprocessing.Process(target = request_worker, args=(conn, request))
-    p1.start()
+    LOG("querylog.log", str(addr))    
+    #p1 = multiprocessing.Process(target = request_worker, args=(conn, request))
+    #p1.start()
+    #pool.apply_async(worker_process, (conn,  ))
+    thread.start_new_thread(worker_thread, (conn, addr))
   s.shutdown()
   s.close()
+  pool.close()
+  pool.join()
