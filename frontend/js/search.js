@@ -26,20 +26,14 @@ function NewsComment(a) {
 }
 
 function formSubmit() {
-	$('#id1').submit(function () {
-		var value = this.keyword.value
-		console.log("Catch value is "+value);
-		console.log("[ATTENTION]: Target is " + TARGET);
-
-	  	$.get(TARGET, {method:"demo", id:value}, function(data,status){
-	    	var decodeData = decodeURI(data);
-	    	console.log(decodeData);
-	    	a = JSON.parse(decodeData);
-	    	NewsComment(a);	// present news in "news" tab
-	    	ScatterPlot(a);	// present scatter char in "scatter" tab
-    	});
-	  console.log("val--"+value)
-		return false;
+	var value = document.getElementById("id2").value
+	console.log(value)
+	$.get(TARGET, {method:"demo", id:value}, function(data,status){
+		var decodeData = decodeURI(data);
+		console.log(decodeData);
+		a = JSON.parse(decodeData);
+		NewsComment(a);	// present news in "news" tab
+		ScatterPlot(a);	// present scatter char in "scatter" tab
 	});
 	return false;
  }
