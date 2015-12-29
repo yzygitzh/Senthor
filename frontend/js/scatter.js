@@ -1,5 +1,5 @@
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 1000 - margin.left - margin.right,
+var margin = {top: 20, right: 40, bottom: 150, left: 80},
+    width = 700 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 /* 
@@ -14,7 +14,7 @@ var xValue = function(d) { return d.appeartime;}, // data -> value
     // xScale = d3.scale.linear().range([0, width]), // value -> display
     xScale = d3.time.scale().range([0, width]),
     xMap = function(d) { return xScale(xValue(d));}, // data -> display
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5).tickFormat(d3.time.format("%x %H:%M"));
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(12).tickFormat(d3.time.format("%x %H:%M"));
 
 // setup y
 var yValue = function(d) { return d.pole;}, // data -> value
@@ -87,20 +87,43 @@ function ScatterPlot(a) {
   	console.log(d3.max(data, function(d) { return d.pole; }));
 	// xScale.domain(d3.extent(data, function(d) { return d.appeartime; }));
 	// yScale.domain(d3.extent(data, function(d) { return d.pole; }));
-	xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
+	xScale.domain([d3.min(data, xValue)-3600, d3.max(data, xValue)+3600]);
 	yScale.domain([-1, 1]);
 
 	// x-axis
-	svgScatter.append("g")
-	  .attr("class", "x axis")
-	  .attr("transform", "translate(0," + height + ")")
-	  .call(xAxis)
-	.append("text")
-	  .attr("class", "label")
-	  .attr("x", width)
-	  .attr("y", -6)
+	// svgScatter.append("g")
+	//   .attr("class", "x axis")
+	//   .attr("transform", "translate(0," + height + ")")
+	//   .call(xAxis)
+	//   .selectAll("text")
+	//   	.style("text-anchor", "end")
+ //        .attr("transform", function(d) {
+	//         	return "rotate(-65)" 
+	//         })
+	// .append("text")
+	//   .attr("class", "label")
+	//   .attr("x", width-20)
+	//   .attr("y", -6)
+	//   .style("text-anchor", "end")
+	//   .text("Time");
+  svgScatter.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+	  .selectAll("text")
 	  .style("text-anchor", "end")
-	  .text("Time");
+	  .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+	  .attr("transform", function(d) {
+	    	return "rotate(-65)" 
+	    })
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("Time");
+
 
 	// y-axis
 	svgScatter.append("g")
@@ -127,7 +150,7 @@ function ScatterPlot(a) {
 	      tooltip.transition()
 	           .duration(200)
 	           .style("opacity", .9);
-	      tooltip.html(d["source"] + "<br/> (" + xValue(d) 
+	      tooltip.html(d["source"] + "<br/> (" + Date(xValue(d))
 	        + ", " + yValue(d) + ")")
 	           .style("left", (d3.event.pageX + 5) + "px")
 	           .style("top", (d3.event.pageY - 28) + "px");
