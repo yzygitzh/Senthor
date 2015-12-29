@@ -111,7 +111,21 @@ def middleware_main():
     #p1 = multiprocessing.Process(target = request_worker, args=(conn, request))
     #p1.start()
     #pool.apply_async(worker_process, (conn,  ))
-    thread.start_new_thread(worker_thread, (conn, addr))
+    #thread.start_new_thread(worker_thread, (conn, addr))
+    request = conn.recv(1024)
+    LOG("querylog.log", request)
+    method = request.split(' ')[0]
+    try:
+      LOG("querylog.log", "Request is " + request + " .")
+      src = request.split(' ')[1]
+      # Here we only deal with GET method
+      if method == 'GET':
+        conn.sendall(handle_get(src[2:]))
+    except:
+      conn.close()
+    conn.close()
+    LOG("querylog.log","Close successfully")
+
   s.shutdown()
   s.close()
   pool.close()

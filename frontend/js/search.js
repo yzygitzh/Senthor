@@ -38,7 +38,7 @@ function formSubmit() {
 	    	NewsComment(a);	// present news in "news" tab
 	    	ScatterPlot(a);	// present scatter char in "scatter" tab
     	});
-
+	  console.log("val--"+value)
 		return false;
 	});
 	return false;
