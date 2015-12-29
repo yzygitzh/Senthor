@@ -77,7 +77,7 @@ def handle_get(text):
   )
   response = http_client.call('query',keyword)   
   content += response
-  LOG("querylog.log", content)
+  #LOG("querylog.log", content)
   return content 
 
 def worker_thread(conn, request):
