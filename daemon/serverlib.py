@@ -81,6 +81,23 @@ def handle_get(text):
   LOG("querylog.log", content)
   return content 
 
+def request_worker(conn, request):
+  method = request.split(' ')[0]
+  try:
+    LOG("querylog.log", "Request is " + request + " .")
+    src = request.split(' ')[1]
+
+    # deal with GET method
+    if method == 'GET':
+      conn.sendall(handle_get(src[2:]))
+  except:
+    conn.close()
+
+  #print 'Connected by', addr
+  #print 'Request is:', request
+  # close connection
+  conn.close()
+  LOG("querylog.log","Close successfully")
 
 def middleware_main():
   # Configure socket
@@ -94,21 +111,7 @@ def middleware_main():
     conn, addr = s.accept()
     request = conn.recv(1024)
     LOG("querylog.log", str(addr))
-    method = request.split(' ')[0]
-    try:
-      LOG("querylog.log", "Request is " + request + " .")
-      src = request.split(' ')[1]
-
-      # deal with GET method
-      if method == 'GET':
-        conn.sendall(handle_get(src[2:]))
-    except:
-      conn.close()
-
-    #print 'Connected by', addr
-    #print 'Request is:', request
-    # close connection
-    conn.close()
-    LOG("querylog.log","Close successfully")
+    p1 = multiprocessing.Process(target = request_worker, args=(conn, request))
+    p1.start()
   s.shutdown()
   s.close()
