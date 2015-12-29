@@ -103,7 +103,7 @@ def middleware_main():
   s.bind((HOST, PORT))
   s.listen(10)
   LOG("querylog.log", "http://localhost:27015 listening")
-  pool = multiprocessing.Pool(processes = 10)
+  #pool = multiprocessing.Pool(processes = 10)
   # infinite loop, server forever
   while True:
     conn, addr = s.accept()
