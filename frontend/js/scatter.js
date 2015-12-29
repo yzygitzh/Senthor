@@ -142,10 +142,11 @@ function ScatterPlot(a) {
 	  .data(data)
 	  .enter().append("circle")
 	  .attr("class", "dot")
-	  .attr("r", 5)
+	  .attr("r", 7)
 	  .attr("cx", xMap)
 	  .attr("cy", yMap)
 	  .style("fill", function(d) { return color(cValue(d));}) 
+	  .style("opacity", 0.7)
 	  .on("mouseover", function(d) {
 	      tooltip.transition()
 	           .duration(200)
