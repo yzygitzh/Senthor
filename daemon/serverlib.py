@@ -27,9 +27,6 @@ Content-Type: text/html
 Access-Control-Allow-Origin: *
 
 '''
-# crawler module
-crawler_name_list = ['crawler_yahoo', 'crawler_fox', 'crawler_theguardian']
-#crawler_name_list = ['crawler_yahoo']
 
 def timestr():  
   return time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
