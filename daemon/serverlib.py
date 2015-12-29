@@ -17,10 +17,6 @@ import json
 import time
 from db import *
 
-# Timer
-FIXED_TIME = 3600
-schedule = sched.scheduler(time.time, time.sleep)
-
 # Address
 HOST = ''
 PORT = 27015
@@ -67,7 +63,6 @@ def daemon_server():
   )
   LOG("querylog.log", "Starting HTTP server ...")
   LOG("querylog.log", "URL: http://127.0.0.1:8888")
-  LOG("querylog.log", str(os.getpid()))
   http_server.serve_forever()
 
 
@@ -117,58 +112,3 @@ def middleware_main():
     LOG("querylog.log","Close successfully")
   s.shutdown()
   s.close()
-
-def getTextOverallSentiment(text):
-  blob=TextBlob(text,analyzer=NaiveBayesAnalyzer())
-  result=()
-  result=blob.sentiment
-  return result
-
-def getPatternAnalyzerSentiment(text):
-  blob=TextBlob(text)
-  result=()
-  result=blob.sentiment
-  return result
-
-def crawler_worker(crawler_name):
-  LOG("crawlerlog.log","Invoking " + crawler_name)
-  # other modules use out.txt only
-  os.system('cd ../crawler/%s; \
-             rm %s_tmp.txt; \
-             scrapy crawl %s > %s_tmp.txt; \
-             mv %s_tmp.txt ../../daemon/%s_out.txt' % \
-             (crawler_name, crawler_name, crawler_name, crawler_name, crawler_name, crawler_name))
-  LOG("crawlerlog.log", crawler_name + "'s work done") 
-
-
-def crawler():
-  crawler_process_list = []
-    # get in.txt's ready
-  db_filter_by_crawlertime()
-
-  LOG("crawlerlog.log","Crawlers begin")
-
-  for crawler_name in crawler_name_list:
-    crawler_process_list.append(multiprocessing.Process(target=crawler_worker, args=(crawler_name,)))
-
-  # start crawlers
-  for crawler_process in crawler_process_list:
-    crawler_process.start()
-
-  # wait crawlers terminate
-  for crawler_process in crawler_process_list:
-    crawler_process.join(timeout = FIXED_TIME / 2)
-  
-  for crawler_name in crawler_name_list:
-    db_handle_json("%s_out.txt" % crawler_name)
-  LOG("crawlerlog.log", "Crawlers end")
-  
-  # this timer should always be called    
-  schedule.enter(FIXED_TIME, 0, crawler, ()) 
-  schedule.run()
-  LOG("crawlerlog.log", "Set up new timer successfully")
-
-def crawler_main():
-  schedule.enter(300, 0, crawler, ()) 
-  schedule.run()
-

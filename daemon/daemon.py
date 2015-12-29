@@ -8,6 +8,7 @@ sys.setdefaultencoding('utf-8')
 import pyjsonrpc
 import multiprocessing
 from serverlib import *
+from crawler import *
 
 # Here we create three process
 # p1 is the rpc_server
