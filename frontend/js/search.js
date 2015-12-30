@@ -29,7 +29,8 @@ function formSubmit() {
 	var value = document.getElementById("id2").value
 	console.log(value)
 	$.get(TARGET, {method:"demo", id:value}, function(data,status){
-		var decodeData = decodeURI(data);
+		var decodeData = decodeURIComponent(encodeURI(data));
+		decodeData = unescape(decodeData.replace(/\\u/g, "%u"));
 		console.log(decodeData);
 		a = JSON.parse(decodeData);
 		NewsComment(a);	// present news in "news" tab
