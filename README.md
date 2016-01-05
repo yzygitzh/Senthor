@@ -61,7 +61,32 @@ Web服务器由Daemon启动，之后也一直常驻后台。服务器在利用�
 * 语言基础:Javascript(PHP) 
 	* 由于这次我们只需要一个主页，只要能有良好的JSON RPC接口的语言使用就可以了。 
 * 前端可视化模块：D3.js
-	* 谁有兴趣来弄一下都可以，大家都没用过这个可视化工具。不过基于Javascript的可视化包很多，如果D3不行的的话我们可以试试别的。这个还是很重要的，其他模块在展示的时候其实可以随便糊弄，这个就是我们项目的脸，脸好了分绝不会低的。(以上都是我瞎编的) (其实我可以去试试，反正都没学过而且这个模块相对独立，我还有学长帮助233 但是到时候自打脸不要打我就好- by芊)
+	* 谁有兴趣来弄一下都可以，大家都没用过这个可视化工具。不过基于Javascript的可视化包很多，如果D3不行的的话我们可以试试别的。这个还是很重要的，其他模块在展示的时候其实可以随便糊弄，这个就是我们项目的脸，脸好了分绝不会低的。
+
+frontend组织形式：
+```
+frontend/
+├── css/
+│   ├── css/
+│   │   ├── bootstrap.min.css
+│   │   └── flat-ui.min.css
+│   └── fonts/
+├── img/
+├── js/
+│   ├── d3.min.js
+│   ├── flat-ui.min.js
+│   ├── jquery.min.js
+│   ├── search.js
+│   ├── logo.js
+│   ├── scatter.js
+│   └── linechart.js
+├── index.html
+├── welcome.html
+├── analysis.html
+├── aboutus.html
+└── QA.html
+
+```
 
 ---
 ####文本情感分析模块
