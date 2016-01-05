@@ -34,7 +34,8 @@ function formSubmit() {
 		console.log(decodeData);
 		a = JSON.parse(decodeData);
 		NewsComment(a);	// present news in "news" tab
-		ScatterPlot(a);	// present scatter char in "scatter" tab
+		ScatterPlot(a);	// present scatter chart in "scatter" tab
+		LineChart(a);	// present line chart in "line chart" tab
 	});
 	return false;
  }

@@ -29,14 +29,14 @@ var cValue = function(d) {
     color = d3.scale.category10().domain(["a", "b", "c",  "d","crawler_yahoo","e", "f","g","crawler_fox","crawler_theguardian", ]);
 
 // add the graph canvas to the body of the webpage
-var svgScatter = d3.select("#scatterChart").append("svg")
+var svgLine = d3.select("#lineChart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   	.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // add the tooltip area to the webpage
-var tooltip = d3.select("#scatterChart").append("div")
+var tooltip = d3.select("#lineChart").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
@@ -48,19 +48,19 @@ var line = d3.svg.line()
 		return yScale(yValue(d));; //利用尺度運算資料的值，傳回y的位置
 	}); 
 
-function ScatterPlot(a) {
+function LineChart(a) {
 
 	// don't want dots overlapping axis, so add in buffer to data domain
-	document.getElementById("scatterChart").innerHTML="";
+	document.getElementById("lineChart").innerHTML="";
 	// add the graph canvas to the body of the webpage
-	var svgScatter = d3.select("#scatterChart").append("svg")
+	var svgLine = d3.select("#lineChart").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  	.append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	// add the tooltip area to the webpage
-	var tooltip = d3.select("#scatterChart").append("div")
+	var tooltip = d3.select("#lineChart").append("div")
 	    .attr("class", "tooltip")
 	    .style("opacity", 0);
 	var data = [];
@@ -71,6 +71,8 @@ function ScatterPlot(a) {
 		var curTime = newDate;
 		var lineData = [];
 		for (var j = 0; j < a[i]["pole"].length && j < 72; j++) {
+			if (a[i]["pole"].length < 36)
+				break;
 			if (Math.abs(a[i]["pole"][j] - 0) < 0.001 )
 				continue;
 			var tmp_data = {};
@@ -82,11 +84,7 @@ function ScatterPlot(a) {
 			curTime += 3600000;
 		}
 	}
-	console.log(data);
-	console.log(d3.min(data, function(d) { return d.appeartime; }));
-  	console.log(d3.max(data, function(d) { return d.appeartime; }));
-  	console.log(d3.min(data, function(d) { return d.pole; }));
-  	console.log(d3.max(data, function(d) { return d.pole; }));
+
 	// xScale.domain(d3.extent(data, function(d) { return d.appeartime; }));
 	// yScale.domain(d3.extent(data, function(d) { return d.pole; }));
 	xScale.domain([d3.min(data, xValue)-3600000, d3.max(data, xValue)+36000000]);
@@ -94,7 +92,7 @@ function ScatterPlot(a) {
 	yScale.domain([d3.min(data, yValue)-0.05, d3.max(data, yValue)+0.05]);
 
 
-  svgScatter.append("g")
+  svgLine.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
@@ -113,7 +111,7 @@ function ScatterPlot(a) {
       .text("Time");
 
 	// y-axis
-	svgScatter.append("g")
+	svgLine.append("g")
 	  .attr("class", "y axis")
 	  .call(yAxis)
 	.append("text")
@@ -124,33 +122,74 @@ function ScatterPlot(a) {
 	  .style("text-anchor", "end")
 	  .text("Polarity");
 
+	// draw lines
+	for (var i = 0; i < a.length; i++) {
+		var myDate=a[i]["appeartime"];
+		var newDate=myDate[0]+"/"+myDate[1]+"/"+myDate[2]+" "+myDate[3]+":"+myDate[4]+":"+myDate[5];
+		newDate = new Date(newDate).getTime();
+		var curTime = newDate;
+		var lineData = [];
+		for (var j = 0; j < a[i]["pole"].length && j < 72; j++) {
+			if (a[i]["pole"].length < 36)
+				break;
+			if (Math.abs(a[i]["pole"][j] - 0) < 0.001 )
+				continue;
+			var tmp_data = {};
+			tmp_data["appeartime"] = +curTime;
+			tmp_data["source"] = a[i]["source"];
+			tmp_data["pole"] = +a[i]["pole"][j];
+			data.push(tmp_data);
+			lineData.push(tmp_data);
+			curTime += 3600000;
+		}
+		console.log(lineData);
+
+		var onepath = svgLine.append("path")
+			.datum(lineData)
+			.attr("class", "line")
+			.attr('d', line)
+			.attr("stroke-width", 3)
+			.style("opacity", 0.8)
+			.attr("fill", "none");
+		if (a[i]["source"] == "crawler_yahoo") {
+			onepath.style("stroke", color("crawler_yahoo"));
+		}
+		if (a[i]["source"] == "crawler_theguardian") {
+			onepath.style("stroke", color("crawler_theguardian"));
+		}
+		if (a[i]["source"] == "crawler_fox") {
+			onepath.style("stroke", color("crawler_fox"));
+		}
+	}
+
+
 	// draw dots
-	svgScatter.selectAll(".dot")
-	  .data(data)
-	  .enter().append("circle")
-	  .attr("class", "dot")
-	  .attr("r", 3)
-	  .attr("cx", xMap)
-	  .attr("cy", yMap)
-	  .style("fill", function(d) { return color(cValue(d));}) 
-	  .style("opacity", 0.8)
-	  .on("mouseover", function(d) {
-	      tooltip.transition()
-	           .duration(200)
-	           .style("opacity", .9);
-	      tooltip.html(d["source"] + "<br/> (" + (new Date(xValue(d)))
-	        + ", " + yValue(d) + ")")
-	           .style("left", (d3.event.pageX + 5) + "px")
-	           .style("top", (d3.event.pageY - 28) + "px");
-	  })
-	  .on("mouseout", function(d) {
-	      tooltip.transition()
-	           .duration(500)
-	           .style("opacity", 0);
-	  });
+	// svgLine.selectAll(".dot")
+	//   .data(data)
+	//   .enter().append("circle")
+	//   .attr("class", "dot")
+	//   .attr("r", 1.5)
+	//   .attr("cx", xMap)
+	//   .attr("cy", yMap)
+	//   .style("fill", function(d) { return color(cValue(d));}) 
+	//   .style("opacity", 0.8)
+	//   .on("mouseover", function(d) {
+	//       tooltip.transition()
+	//            .duration(200)
+	//            .style("opacity", .9);
+	//       tooltip.html(d["source"] + "<br/> (" + (new Date(xValue(d)))
+	//         + ", " + yValue(d) + ")")
+	//            .style("left", (d3.event.pageX + 5) + "px")
+	//            .style("top", (d3.event.pageY - 28) + "px");
+	//   })
+	//   .on("mouseout", function(d) {
+	//       tooltip.transition()
+	//            .duration(500)
+	//            .style("opacity", 0);
+	//   });
 
 	// draw legend
-	var legend = svgScatter.selectAll(".legend")
+	var legend = svgLine.selectAll(".legend")
 	  .data(["crawler_yahoo", "crawler_theguardian", "crawler_fox"])
 	.enter().append("g")
 	  .attr("class", "legend")
