@@ -71,7 +71,7 @@ function LineChart(a) {
 		var curTime = newDate;
 		var lineData = [];
 		for (var j = 0; j < a[i]["pole"].length && j < 72; j++) {
-			if (a[i]["pole"].length < 36)
+			if (a[i]["pole"].length < 24)
 				break;
 			if (Math.abs(a[i]["pole"][j] - 0) < 0.001 )
 				continue;
@@ -130,7 +130,7 @@ function LineChart(a) {
 		var curTime = newDate;
 		var lineData = [];
 		for (var j = 0; j < a[i]["pole"].length && j < 72; j++) {
-			if (a[i]["pole"].length < 36)
+			if (a[i]["pole"].length < 24)
 				break;
 			if (Math.abs(a[i]["pole"][j] - 0) < 0.001 )
 				continue;
